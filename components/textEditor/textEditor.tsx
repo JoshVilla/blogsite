@@ -15,7 +15,12 @@ import FontSize from "@tiptap/extension-font-size";
 import Link from "@tiptap/extension-link";
 import {Button} from "@/components/ui/button";
 
-const TiptapEditor = ({ onChange }: { onChange: (content: string) => void }) => {
+interface IEditor {
+  onChange: (content: string) => void,
+  contentValue: string
+}
+
+const TiptapEditor = ({ onChange, contentValue }: IEditor) => {
   const [content, setContent] = useState("");
 
   const CustomListItem = ListItem.extend({
@@ -45,7 +50,7 @@ const TiptapEditor = ({ onChange }: { onChange: (content: string) => void }) => 
         },
       }),
     ],
-    content: ``, // Ensure correct list structure
+    content: contentValue, // Ensure correct list structure
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       setContent(html);

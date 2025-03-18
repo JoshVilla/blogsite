@@ -28,3 +28,4 @@ export const passwordValidation = (
 export const formattedDate = (date: string) => {
   return format(new Date(date), "MM/dd/yyyy")
 }
+

@@ -36,7 +36,7 @@ const Login = () => {
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      toast.success("Login successful!");
+      toast.success(data.message);
       console.log("Login response:", data);
      if(data.isSuccess) {
       dispatch(setUser(data.data))

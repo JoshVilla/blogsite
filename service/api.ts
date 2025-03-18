@@ -34,3 +34,6 @@ export const blogAction = async(params:any):Promise<any> => {
 
 export const getLikeFavorite = async(params:any):Promise<any> => {
   return await post("/api/blog/getLikeFavorite", params)}
+
+export const editBlog = async(params:any):Promise<any> => {
+  return await post("/api/blog/editBlog", params, true)}

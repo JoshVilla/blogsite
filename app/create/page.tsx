@@ -179,7 +179,7 @@ const Page = () => {
         {/* Content Editor */}
         <div className="mt-10 border p-4 rounded-lg">
           <div className="text-lg font-semibold mb-4">Content</div>
-          <TiptapEditor onChange={handleEditorChange} />
+          <TiptapEditor onChange={handleEditorChange} contentValue=""/>
         </div>
 
         {/* Submit Button */}

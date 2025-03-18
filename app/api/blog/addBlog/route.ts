@@ -15,8 +15,6 @@ export async function POST(request: NextRequest) {
         const content = formData.get("content") as string;
         const username = formData.get("username") as string;
 
-        console.log(blog_category)
-
         if (!title || !content) {
             return NextResponse.json({
                 message: "Title and content are required",
@@ -61,7 +59,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
             message: "Blog created successfully",
             success: true,
-            // data: newBlog
+            data: newBlog
         }, { status: 201 });
 
     } catch (error) {

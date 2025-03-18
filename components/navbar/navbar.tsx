@@ -19,6 +19,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { IUser } from '@/utils/types'
+import { clearBlog } from '@/app/redux/slices/blogSlice'
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -30,6 +31,7 @@ const Navbar = () => {
     await persistor.flush()
     await persistor.purge()
     dispatch(clearUser())
+    dispatch(clearBlog())
     router.push("/")
   }
 

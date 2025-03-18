@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
 import Menu from "@/components/menu/menu";
+import { usePathname } from "next/navigation";
 
 
 export default function RootLayout({
@@ -12,12 +13,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const path = usePathname()
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
         <ClientLayout>
           <Navbar />
-          <Menu />
+          {path !== "/login" && path !== "/register" && <Menu />}
           {children}
         </ClientLayout>
         <Toaster />

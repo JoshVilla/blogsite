@@ -37,7 +37,7 @@ const MyBlogs = () => {
       transition={{ duration: 0.5 }}
       className="w-[90%] md:w-[70%] mx-auto my-10"
     >
-      <TitlePage title="My Liked Blogs" />
+      <TitlePage title="My Favorite Blogs" />
       <div className="my-4">
         <Categories onChange={(category) => {
           if (category !== selectedCategory) setSelectedCategory(category);
