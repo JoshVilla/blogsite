@@ -55,7 +55,7 @@ export default function Home() {
       </div>
      
     </div>
-    <div className=" right-10 bottom-10 fixed flex flex-col gap-10">
+    <div className=" right-10 bottom-10 fixed flex flex-col gap-6">
        {
         isLoggedIn && (
           <TooltipProvider>

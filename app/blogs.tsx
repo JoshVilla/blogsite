@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { Heart, ThumbsUp } from "lucide-react";
+import Categories from "@/components/categories/categories";
 
 const Blogs = () => {
   const route = useRouter();
@@ -35,30 +36,7 @@ const Blogs = () => {
   const gotToBlog = (id: string) => route.push(`/blog/${id}`);
   return (
     <div>
-      {/* Categories */}
-      <div className="flex justify-center items-center flex-wrap">
-        {categories.map((category: ICategory, index: number) => (
-          <motion.div
-            key={category.key + index}
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            custom={index}
-          >
-            <Button
-              variant="link"
-              className={`cursor-pointer ${
-                selectedCategory === category.label ? "underline" : ""
-              }`}
-              size="sm"
-              onClick={() => setSelectedCategory(category.label)}
-            >
-              {category.label}
-            </Button>
-          </motion.div>
-        ))}
-      </div>
+      <Categories onChange={setSelectedCategory}/>
 
       {/* Blog List */}
       <div className="mt-10">
@@ -69,7 +47,7 @@ const Blogs = () => {
           <p className="mt-5 text-red-500 text-center">Error fetching blogs.</p>
         )}
 
-        <div className="mt-10 flex flex-wrap  gap-4">
+        <div className="mt-10 flex flex-wrap  gap-10 justify-center md:justify-start">
           {data?.data?.length > 0 ? (
             data.data.map((blog: any, index: number) => (
               <motion.div
