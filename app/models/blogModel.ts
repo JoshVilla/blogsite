@@ -6,6 +6,10 @@ interface IBlog {
     content: string
     username: string,
     topic_category: string[]
+    likedByUsers: string[]
+    favoriteByUsers:string[],
+    likes: number,
+    favorites: number
 }
 
 const BlogSchema = new mongoose.Schema<IBlog>({
@@ -14,6 +18,10 @@ const BlogSchema = new mongoose.Schema<IBlog>({
     content: { type: String, required: true },
     username: { type: String, required: true },
     topic_category: { type: [String], required: true },
+    likedByUsers: { type: [String], default: [] },
+    favoriteByUsers: { type: [String], default: [] },
+    likes: {type: Number, default: 0},
+    favorites: {type: Number, default: 0}
 }, { timestamps: true })
 
 const Blog = mongoose.models.Blog || mongoose.model<IBlog>('Blog', BlogSchema)

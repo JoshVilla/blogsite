@@ -29,4 +29,8 @@ export const categories: ICategory[] = [
         label: "Lifestyle",
         key: "lifstyle",
     },
+    {
+        label: "Sports",
+        key: "sports",
+    },
 ];

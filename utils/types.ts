@@ -15,6 +15,7 @@ export interface IUser {
     lastname: string;
     username: string;
     password: string;
+    id?: string
 }
 
 
@@ -26,5 +27,9 @@ export interface IBlog {
     topic_category: string[],
     createdAt: string
     updatedAt: string
+    favorites: number,
+    likedByUsers: string[],
+    favoriteByUsers: string[],
+    likes: number,
     __v: number
 }

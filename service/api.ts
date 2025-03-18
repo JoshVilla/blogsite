@@ -27,3 +27,7 @@ export const getBlogs = async (params: any):Promise<any> => {
 export const addBlog = async (params: any):Promise<any> => {
   return await post("/api/blog/addBlog", params, true)
 }
+
+export const blogAction = async(params:any):Promise<any> => {
+  return await post("/api/blog/blogAction", params)
+}

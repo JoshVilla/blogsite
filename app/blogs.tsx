@@ -7,11 +7,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getBlogs } from "@/service/api";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import {  format } from "date-fns";
+import { format } from "date-fns";
 import { useRouter } from "next/navigation";
+import { Heart, ThumbsUp } from "lucide-react";
 
 const Blogs = () => {
-  const route = useRouter()
+  const route = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const { isLoading, data, error } = useQuery({
@@ -29,9 +30,9 @@ const Blogs = () => {
     }),
   };
 
-  const formmatedDate = (date:string) =>  format(new Date(date), "MM/dd/yyyy")
+  const formmatedDate = (date: string) => format(new Date(date), "MM/dd/yyyy");
 
-  const gotToBlog = (id:string) => route.push(`/blog/${id}`)
+  const gotToBlog = (id: string) => route.push(`/blog/${id}`);
   return (
     <div>
       {/* Categories */}
@@ -47,7 +48,9 @@ const Blogs = () => {
           >
             <Button
               variant="link"
-              className={`cursor-pointer ${selectedCategory === category.label ? "underline" : ""}`}
+              className={`cursor-pointer ${
+                selectedCategory === category.label ? "underline" : ""
+              }`}
               size="sm"
               onClick={() => setSelectedCategory(category.label)}
             >
@@ -62,27 +65,53 @@ const Blogs = () => {
         <div className="text-2xl md:text-4xl">{`${selectedCategory} Blogs`}</div>
 
         {isLoading && <p className="mt-5 text-center">Loading...</p>}
-        {error && <p className="mt-5 text-red-500 text-center">Error fetching blogs.</p>}
+        {error && (
+          <p className="mt-5 text-red-500 text-center">Error fetching blogs.</p>
+        )}
 
         <div className="mt-10 flex flex-wrap  gap-4">
           {data?.data?.length > 0 ? (
             data.data.map((blog: any, index: number) => (
-              <motion.div 
-              key={blog.title + index}
-              variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              custom={index}
-              className="w-60 h-auto">
-                <Image src={blog.image_url} alt={blog.title} width={240} height={150} className="h-40 object-cover" />
+              <motion.div
+                key={blog.title + index}
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                custom={index}
+                className="w-60 h-auto"
+              >
+                <Image
+                  src={blog.image_url}
+                  alt={blog.title}
+                  width={240}
+                  height={150}
+                  className="h-40 object-cover"
+                />
                 <div className="flex gap-2 items-center my-2">
-                {
-                  blog.topic_category.map((category: string, index: number) => <Badge key={index}>{category}</Badge>)
-                }
+                  {blog.topic_category.map(
+                    (category: string, index: number) => (
+                      <Badge key={index}>{category}</Badge>
+                    )
+                  )}
                 </div>
-                <div className="text-md font-semibold mt-2 line-clamp-3 cursor-pointer hover:underline" onClick={() => gotToBlog(blog._id)}>{blog.title}</div>
-                <div className="text-forground text-xs text-gray-500 flex justify-between items-center mt-4">
+                <div
+                  className="text-md font-semibold mt-2 line-clamp-3 cursor-pointer hover:underline"
+                  onClick={() => gotToBlog(blog._id)}
+                >
+                  {blog.title}
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="text-xs font-semibold flex items-center gap-1  my-2">
+                  <ThumbsUp className="h-4 w-4" />
+                    <span>{blog.likes} </span>
+                  </div>
+                  <div className="text-xs font-semibold flex items-center gap-1  my-2">
+                  <Heart className="h-4 w-4" />
+                    <span>{blog.favorites} </span>
+                  </div>
+                </div>
+                <div className="text-forground text-xs text-gray-500 flex justify-between items-center">
                   <div>{blog.username}</div>
                   <div>{formmatedDate(blog.createdAt)}</div>
                 </div>
