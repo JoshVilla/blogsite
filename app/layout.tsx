@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+"use client"
 import "./globals.css";
 import ClientLayout from "./client-layout";
 import Navbar from "@/components/navbar/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface IMenuLinks {
   label: string
-  key: string
+  key: string,
+  path: string
 }
 
 export default function RootLayout({
@@ -16,23 +17,28 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const router = useRouter()
 
   const menuLinks: IMenuLinks[] = [
     {
       label: "Home",
-      key: "home"
+      key: "home",
+      path: "/"
     },
     {
       label: "My Blogs",
-      key: "myBlogs"
+      key: "myBlogs",
+      path: "/myBlogs"
     },
     {
       label: "My Likes",
-      key: "myLikes"
+      key: "myLikes",
+       path: "/myLikes"
     },
     {
       label: "My Favorites",
-      key: "myFavorites"
+      key: "myFavorites",
+       path: "/myFavorites"
     }
   ]
   return (
@@ -41,7 +47,7 @@ export default function RootLayout({
         <Navbar />
         <div className="w-[90%] md:w-[70%] mx-auto mt-10 flex items-center gap-6 flex-wrap">
           {
-            menuLinks.map((menu: IMenuLinks, index: number) =>  <Button key={menu.key+index} variant="link" className="hover:underline cursor-pointer" size="sm">{menu.label}</Button>)
+            menuLinks.map((menu: IMenuLinks, index: number) =>  <Button key={menu.key+index} variant="link" className="hover:underline cursor-pointer" size="sm" onClick={() => router.push(menu.path)}>{menu.label}</Button>)
           }
         </div>
        {children}</ClientLayout>

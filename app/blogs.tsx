@@ -11,6 +11,8 @@ import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { Heart, ThumbsUp } from "lucide-react";
 import Categories from "@/components/categories/categories";
+import { IBlog } from "@/utils/types";
+import BlogCard from "@/components/blogCard/blogCard";
 
 const Blogs = () => {
   const route = useRouter();
@@ -49,7 +51,7 @@ const Blogs = () => {
 
         <div className="mt-10 flex flex-wrap  gap-10 justify-center md:justify-start">
           {data?.data?.length > 0 ? (
-            data.data.map((blog: any, index: number) => (
+            data.data.map((blog: IBlog, index: number) => (
               <motion.div
                 key={blog.title + index}
                 variants={cardVariants}
@@ -57,42 +59,9 @@ const Blogs = () => {
                 animate="visible"
                 exit="hidden"
                 custom={index}
-                className="w-60 h-auto"
+                // className="w-60 h-auto"
               >
-                <Image
-                  src={blog.image_url}
-                  alt={blog.title}
-                  width={240}
-                  height={150}
-                  className="h-40 object-cover"
-                />
-                <div className="flex gap-2 items-center my-2">
-                  {blog.topic_category.map(
-                    (category: string, index: number) => (
-                      <Badge key={index}>{category}</Badge>
-                    )
-                  )}
-                </div>
-                <div
-                  className="text-md font-semibold mt-2 line-clamp-3 cursor-pointer hover:underline"
-                  onClick={() => gotToBlog(blog._id)}
-                >
-                  {blog.title}
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="text-xs font-semibold flex items-center gap-1  my-2">
-                  <ThumbsUp className="h-4 w-4" />
-                    <span>{blog.likes} </span>
-                  </div>
-                  <div className="text-xs font-semibold flex items-center gap-1  my-2">
-                  <Heart className="h-4 w-4" />
-                    <span>{blog.favorites} </span>
-                  </div>
-                </div>
-                <div className="text-forground text-xs text-gray-500 flex justify-between items-center">
-                  <div>{blog.username}</div>
-                  <div>{formmatedDate(blog.createdAt)}</div>
-                </div>
+              <BlogCard data={blog} />
               </motion.div>
             ))
           ) : (

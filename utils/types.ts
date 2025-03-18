@@ -20,6 +20,7 @@ export interface IUser {
 
 
 export interface IBlog {
+    _id:string
     title: string
     image_url: string
     content: string

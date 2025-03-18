@@ -1,5 +1,7 @@
 {
   "/api/blog/route": "app/api/blog/route.js",
+  "/page": "app/page.js",
+  "/create/page": "app/create/page.js",
   "/blog/[id]/page": "app/blog/[id]/page.js",
-  "/page": "app/page.js"
+  "/myBlogs/page": "app/myBlogs/page.js"
 }

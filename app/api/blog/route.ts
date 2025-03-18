@@ -5,7 +5,7 @@ import Blog from "@/app/models/blogModel";
 export async function POST(request: NextRequest) {
     try {
         await connectToDatabase();
-        const { id, category, page = 1, limit = 10 } = await request.json(); // Default values
+        const { id, category, page = 1, limit = 10, username } = await request.json(); // Default values
 
         let params: any = {};
 
@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
             params.topic_category = { $in: [category] }; // Filter by category
         }
         if (id) params._id = id
+        if(username) params.username = username
 
         const blogList = await Blog.find(params)
             .skip((page - 1) * limit) // Skip previous pages
