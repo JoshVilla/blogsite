@@ -2,20 +2,14 @@
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { categories, ICategory } from "@/utils/constant";
 import { useQuery } from "@tanstack/react-query";
 import { getBlogs } from "@/service/api";
-import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
 import { useRouter } from "next/navigation";
-import { Heart, ThumbsUp } from "lucide-react";
 import Categories from "@/components/categories/categories";
 import { IBlog } from "@/utils/types";
 import BlogCard from "@/components/blogCard/blogCard";
 
 const Blogs = () => {
-  const route = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const { isLoading, data, error } = useQuery({
@@ -33,9 +27,6 @@ const Blogs = () => {
     }),
   };
 
-  const formmatedDate = (date: string) => format(new Date(date), "MM/dd/yyyy");
-
-  const gotToBlog = (id: string) => route.push(`/blog/${id}`);
   return (
     <div>
       <Categories onChange={setSelectedCategory}/>

@@ -16,6 +16,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/blog/route.js"
     ],
+    "/myBlogs/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/myBlogs/page.js"
+    ],
     "/blog/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -26,20 +31,25 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/user/route.js"
     ],
+    "/myLikes/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/myLikes/page.js"
+    ],
+    "/api/blog/getLikeFavorite/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/blog/getLikeFavorite/route.js"
+    ],
+    "/myFavorites/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/myFavorites/page.js"
+    ],
     "/api/blog/blogAction/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/blog/blogAction/route.js"
-    ],
-    "/create/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/create/page.js"
-    ],
-    "/myBlogs/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/myBlogs/page.js"
     ]
   }
 }
