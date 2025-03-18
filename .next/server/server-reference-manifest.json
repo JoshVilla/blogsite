@@ -2,46 +2,46 @@
   "node": {
     "7f3491f2c263fdf77caed9240404a23e2825946da4": {
       "workers": {
-        "app/api/blog/editBlog/route": {
+        "app/api/blog/deleteBlog/route": {
           "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CASUS%20TUF%5C%5CDesktop%5C%5Crepos%5C%5Cblogsite%5C%5Cutils%5C%5Chelpers.ts%22%2C%5B%7B%22id%22%3A%227f3491f2c263fdf77caed9240404a23e2825946da4%22%2C%22exportedName%22%3A%22comparePassword%22%7D%2C%7B%22id%22%3A%227f427b82577e5965e0a363500f704014a8478866a4%22%2C%22exportedName%22%3A%22replaceNewImagefromCurrentImage%22%7D%2C%7B%22id%22%3A%227f4653090140513264a5dc2550f4126635c4848c13%22%2C%22exportedName%22%3A%22deleteCloudinaryImage%22%7D%2C%7B%22id%22%3A%227fbc2567d9af9baeee7225490ac1238fda85e2fc7c%22%2C%22exportedName%22%3A%22hashPassword%22%7D%5D%5D%5D&__client_imported__=!",
           "async": false
         }
       },
       "layer": {
-        "app/api/blog/editBlog/route": "rsc"
+        "app/api/blog/deleteBlog/route": "rsc"
       }
     },
     "7f427b82577e5965e0a363500f704014a8478866a4": {
       "workers": {
-        "app/api/blog/editBlog/route": {
+        "app/api/blog/deleteBlog/route": {
           "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CASUS%20TUF%5C%5CDesktop%5C%5Crepos%5C%5Cblogsite%5C%5Cutils%5C%5Chelpers.ts%22%2C%5B%7B%22id%22%3A%227f3491f2c263fdf77caed9240404a23e2825946da4%22%2C%22exportedName%22%3A%22comparePassword%22%7D%2C%7B%22id%22%3A%227f427b82577e5965e0a363500f704014a8478866a4%22%2C%22exportedName%22%3A%22replaceNewImagefromCurrentImage%22%7D%2C%7B%22id%22%3A%227f4653090140513264a5dc2550f4126635c4848c13%22%2C%22exportedName%22%3A%22deleteCloudinaryImage%22%7D%2C%7B%22id%22%3A%227fbc2567d9af9baeee7225490ac1238fda85e2fc7c%22%2C%22exportedName%22%3A%22hashPassword%22%7D%5D%5D%5D&__client_imported__=!",
           "async": false
         }
       },
       "layer": {
-        "app/api/blog/editBlog/route": "rsc"
+        "app/api/blog/deleteBlog/route": "rsc"
       }
     },
     "7f4653090140513264a5dc2550f4126635c4848c13": {
       "workers": {
-        "app/api/blog/editBlog/route": {
+        "app/api/blog/deleteBlog/route": {
           "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CASUS%20TUF%5C%5CDesktop%5C%5Crepos%5C%5Cblogsite%5C%5Cutils%5C%5Chelpers.ts%22%2C%5B%7B%22id%22%3A%227f3491f2c263fdf77caed9240404a23e2825946da4%22%2C%22exportedName%22%3A%22comparePassword%22%7D%2C%7B%22id%22%3A%227f427b82577e5965e0a363500f704014a8478866a4%22%2C%22exportedName%22%3A%22replaceNewImagefromCurrentImage%22%7D%2C%7B%22id%22%3A%227f4653090140513264a5dc2550f4126635c4848c13%22%2C%22exportedName%22%3A%22deleteCloudinaryImage%22%7D%2C%7B%22id%22%3A%227fbc2567d9af9baeee7225490ac1238fda85e2fc7c%22%2C%22exportedName%22%3A%22hashPassword%22%7D%5D%5D%5D&__client_imported__=!",
           "async": false
         }
       },
       "layer": {
-        "app/api/blog/editBlog/route": "rsc"
+        "app/api/blog/deleteBlog/route": "rsc"
       }
     },
     "7fbc2567d9af9baeee7225490ac1238fda85e2fc7c": {
       "workers": {
-        "app/api/blog/editBlog/route": {
+        "app/api/blog/deleteBlog/route": {
           "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CASUS%20TUF%5C%5CDesktop%5C%5Crepos%5C%5Cblogsite%5C%5Cutils%5C%5Chelpers.ts%22%2C%5B%7B%22id%22%3A%227f3491f2c263fdf77caed9240404a23e2825946da4%22%2C%22exportedName%22%3A%22comparePassword%22%7D%2C%7B%22id%22%3A%227f427b82577e5965e0a363500f704014a8478866a4%22%2C%22exportedName%22%3A%22replaceNewImagefromCurrentImage%22%7D%2C%7B%22id%22%3A%227f4653090140513264a5dc2550f4126635c4848c13%22%2C%22exportedName%22%3A%22deleteCloudinaryImage%22%7D%2C%7B%22id%22%3A%227fbc2567d9af9baeee7225490ac1238fda85e2fc7c%22%2C%22exportedName%22%3A%22hashPassword%22%7D%5D%5D%5D&__client_imported__=!",
           "async": false
         }
       },
       "layer": {
-        "app/api/blog/editBlog/route": "rsc"
+        "app/api/blog/deleteBlog/route": "rsc"
       }
     }
   },

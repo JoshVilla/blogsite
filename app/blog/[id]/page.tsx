@@ -23,6 +23,7 @@ import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store/store";
 import { setBlog } from "@/app/redux/slices/blogSlice";
+import DeleteBlog from "../delete/delete";
 
 const Blog = () => {
   const router = useRouter()
@@ -97,7 +98,7 @@ const Blog = () => {
               </div>
               <div className="flex items-center gap-2 cursor-pointer hover:underline">
                 <Trash className="h-4 w-4" />
-                <span className="text-sm font-semibold">Delete Blog</span>
+                <DeleteBlog data={blogData} />
               </div>
             </div>
           )}

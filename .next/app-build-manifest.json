@@ -1,45 +1,45 @@
 {
   "pages": {
-    "/api/blog/editBlog/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/blog/editBlog/route.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/myBlogs/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/myBlogs/page.js"
-    ],
-    "/blog/edit/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/blog/edit/page.js"
+      "static/chunks/app/page.js"
     ],
     "/api/blog/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/blog/route.js"
     ],
+    "/myBlogs/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/myBlogs/page.js"
+    ],
     "/blog/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/blog/[id]/page.js"
     ],
-    "/page": [
+    "/api/blog/deleteBlog/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+      "static/chunks/app/api/blog/deleteBlog/route.js"
     ],
-    "/myLikes/page": [
+    "/api/blog/blogAction/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/myLikes/page.js"
+      "static/chunks/app/api/blog/blogAction/route.js"
+    ],
+    "/myFavorites/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/myFavorites/page.js"
     ],
     "/api/blog/getLikeFavorite/route": [
       "static/chunks/webpack.js",
