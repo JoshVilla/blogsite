@@ -53,7 +53,7 @@ export default function Home() {
       <div>
         <Blogs />
       </div>
-     
+     <div className="h-20" />
     </div>
     <div className=" right-10 bottom-10 fixed flex flex-col gap-6">
        {
