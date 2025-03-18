@@ -1,10 +1,9 @@
 {
-  "/api/blog/getLikeFavorite/route": "app/api/blog/getLikeFavorite/route.js",
-  "/api/blog/blogAction/route": "app/api/blog/blogAction/route.js",
+  "/api/authentication/login/route": "app/api/authentication/login/route.js",
   "/api/blog/route": "app/api/blog/route.js",
   "/page": "app/page.js",
-  "/myBlogs/page": "app/myBlogs/page.js",
-  "/myLikes/page": "app/myLikes/page.js",
+  "/blog/[id]/page": "app/blog/[id]/page.js",
   "/myFavorites/page": "app/myFavorites/page.js",
-  "/blog/[id]/page": "app/blog/[id]/page.js"
+  "/(auth)/login/page": "app/(auth)/login/page.js",
+  "/myLikes/page": "app/myLikes/page.js"
 }
