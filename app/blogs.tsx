@@ -9,8 +9,10 @@ import Categories from "@/components/categories/categories";
 import { IBlog } from "@/utils/types";
 import BlogCard from "@/components/blogCard/blogCard";
 import PaginationComponent from "@/components/pagination/Pagination";
+import { useDispatch } from "react-redux";
 
 const Blogs = () => {
+  const dispatch = useDispatch()
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [pageState, setPageState] = useState({
     currentPage: 1,
@@ -41,6 +43,11 @@ const Blogs = () => {
       }));
     }
   }, [data]);
+
+  useEffect(() => {
+    // dispatch(clearUser())
+  }, [])
+  
 
   return (
     <div>

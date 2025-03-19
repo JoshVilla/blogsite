@@ -15,7 +15,8 @@ export interface IUser {
     lastname: string;
     username: string;
     password: string;
-    id?: string
+    _id: string
+    image_url: string | null
 }
 
 

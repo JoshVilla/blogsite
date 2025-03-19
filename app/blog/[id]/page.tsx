@@ -42,14 +42,15 @@ const Blog = () => {
 
   const blogData: IBlog | null = data?.data?.[0] ?? null;
 
-  const isLoggedIn = () => Object.keys(userState).length > 0;
+  // const isLoggedIn = () => Object.keys(userState).length > 0;
+  const isLoggedIn = () => false;
 
   const toastToLoggedIn = () => toast.warning("Login first to continue");
 
   // Like / Unlike Mutation
   const likeMutation = useMutation({
     mutationFn: () =>
-      blogAction({ blogId: id, action: "like", userId: userState.id }),
+      blogAction({ blogId: id, action: "like", userId: userState._id }),
     onSuccess: (data) => {
       toast.success(data.message);
       //@ts-ignore
@@ -60,7 +61,7 @@ const Blog = () => {
   // Favorite / Unfavorite Mutation
   const favoriteMutation = useMutation({
     mutationFn: () =>
-      blogAction({ blogId: id, action: "favorite", userId: userState.id }),
+      blogAction({ blogId: id, action: "favorite", userId: userState._id }),
     onSuccess: (data) => {
       toast.success(data.message);
       //@ts-ignore

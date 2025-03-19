@@ -15,10 +15,10 @@ const MyBlogs = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const { isLoading, data, error } = useQuery({
-    queryKey: ["blog", selectedCategory, userState.id],
+    queryKey: ["blog", selectedCategory, userState._id],
     queryFn: () =>
-      getLikeFavorite({ userId: userState.id, category: selectedCategory, action: "liked" }),
-    enabled: !!selectedCategory && !!userState.id, // Ensures valid user
+      getLikeFavorite({ userId: userState._id, category: selectedCategory, action: "liked" }),
+    enabled: !!selectedCategory && !!userState._id, // Ensures valid user
   });
 
   const cardVariants = {

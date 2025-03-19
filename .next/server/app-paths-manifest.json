@@ -1,1 +1,8 @@
-{}
+{
+  "/api/blog/route": "app/api/blog/route.js",
+  "/api/user/changeInfo/route": "app/api/user/changeInfo/route.js",
+  "/(auth)/login/page": "app/(auth)/login/page.js",
+  "/page": "app/page.js",
+  "/myBlogs/page": "app/myBlogs/page.js",
+  "/myAccount/page": "app/myAccount/page.js"
+}

@@ -1,13 +1,13 @@
 import { IApiResponse, IUser } from "@/utils/types";
 import { post } from "./service";
 
-export const login = async (params: any):Promise<any> => {
-    return await post("/api/authentication/login", params)
-}
+export const login = async (params: any): Promise<any> => {
+  return await post("/api/authentication/login", params);
+};
 
-export const register = async (params: any):Promise<any> => {
-    return await post("/api/authentication/register", params)
-}
+export const register = async (params: any): Promise<any> => {
+  return await post("/api/authentication/register", params);
+};
 
 // export const register = async (params: any): Promise<any> => {
 //     try {
@@ -20,23 +20,38 @@ export const register = async (params: any):Promise<any> => {
 //     }
 //   };
 
-export const getBlogs = async (params: any):Promise<any> => {
-  return await post("/api/blog", params)
-}
+export const getBlogs = async (params: any): Promise<any> => {
+  return await post("/api/blog", params);
+};
 
-export const addBlog = async (params: any):Promise<any> => {
-  return await post("/api/blog/addBlog", params, true)
-}
+export const addBlog = async (params: any): Promise<any> => {
+  return await post("/api/blog/addBlog", params, true);
+};
 
-export const blogAction = async(params:any):Promise<any> => {
-  return await post("/api/blog/blogAction", params)
-}
+export const blogAction = async (params: any): Promise<any> => {
+  return await post("/api/blog/blogAction", params);
+};
 
-export const getLikeFavorite = async(params:any):Promise<any> => {
-  return await post("/api/blog/getLikeFavorite", params)}
+export const getLikeFavorite = async (params: any): Promise<any> => {
+  return await post("/api/blog/getLikeFavorite", params);
+};
 
-export const editBlog = async(params:any):Promise<any> => {
-  return await post("/api/blog/editBlog", params, true)}
+export const editBlog = async (params: any): Promise<any> => {
+  return await post("/api/blog/editBlog", params, true);
+};
 
-  export const deleteBlog = async(params:any):Promise<any> => {
-    return await post("/api/blog/deleteBlog", params)}
+export const deleteBlog = async (params: any): Promise<any> => {
+  return await post("/api/blog/deleteBlog", params);
+};
+
+export const changePassword = async (params: any): Promise<any> => {
+  return await post("/api/user/changePassword", params);
+};
+
+export const changeProfile = async (params: any): Promise<any> => {
+  return await post("/api/user/changeProfile", params, true);
+};
+
+export const changeInfo = async (params: any): Promise<any> => {
+  return await post("/api/user/changeInfo", params);
+};

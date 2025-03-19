@@ -6,6 +6,7 @@ interface IUser {
     lastname: string;
     username: string;
     password: string;
+    image_url: string | null
 }
 
 const UserSchema = new mongoose.Schema<IUser>({
@@ -13,7 +14,8 @@ const UserSchema = new mongoose.Schema<IUser>({
     middlename: { type: String, required: true },
     lastname: { type: String, required: true },
     username: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    image_url: {type: String, default: null}
 }, { timestamps: true });
 
 const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);

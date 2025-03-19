@@ -74,8 +74,6 @@ const Page = () => {
     formData.append("username", userState.username);
 
     mutation.mutate(formData);
-
-    console.log(formData)
   };
 
   const handleChooseCategory = (value: string) => {

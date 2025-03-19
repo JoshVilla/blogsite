@@ -1,7 +1,7 @@
 "use client";
 
 import { RootState } from '@/app/redux/store/store';
-import { Heart, House, Newspaper, ThumbsUp } from "lucide-react";
+import { CircleUserRound, Heart, House, Newspaper, ThumbsUp } from "lucide-react";
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,12 +29,12 @@ const Menu = () => {
     if (Object.keys(userState).length > 0) {
       return [
         ...baseMenu,
+        { label: "My Account", key: "myAccount", path: "/myAccount", icon: CircleUserRound },
         { label: "My Blogs", key: "myBlogs", path: "/myBlogs", icon: Newspaper },
         { label: "My Likes", key: "myLikes", path: "/myLikes", icon: ThumbsUp },
         { label: "My Favorites", key: "myFavorites", path: "/myFavorites", icon: Heart },
       ];
-    }
-
+    } 
     return baseMenu;
   }, [userState]);
 
