@@ -2,6 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import Blog from "@/app/models/blogModel";
 import { connectToDatabase } from "@/lib/mongodb";
 import cloudinary from "@/lib/cloudinaryConfig";
+import User from "@/app/models/userModel";
 
 export async function POST(request: NextRequest) {
     try {
@@ -14,6 +15,7 @@ export async function POST(request: NextRequest) {
         const blog_category = JSON.parse(blog_category_raw) || [];
         const content = formData.get("content") as string;
         const username = formData.get("username") as string;
+        const creator_id = formData.get("creator_id") as string;
 
         if (!title || !content) {
             return NextResponse.json({
@@ -48,12 +50,18 @@ export async function POST(request: NextRequest) {
             }
         }
 
+        //get image profile of an owner of the blog
+
+        const user = await User.findOne({username})
+
         const newBlog = await Blog.create({
             title,
             content,
             username,
+            creator_id,
             topic_category: blog_category,
             image_url: imageUrl,
+            profile_image_url: user.image_url
         });
 
         return NextResponse.json({

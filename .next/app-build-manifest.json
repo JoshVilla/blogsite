@@ -16,6 +16,31 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/blog/route.js"
     ],
+    "/myBlogs/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/myBlogs/page.js"
+    ],
+    "/blog/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/blog/[id]/page.js"
+    ],
+    "/api/blog/deleteBlog/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/blog/deleteBlog/route.js"
+    ],
+    "/create/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/create/page.js"
+    ],
+    "/api/blog/addBlog/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/blog/addBlog/route.js"
+    ],
     "/(auth)/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -26,20 +51,30 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/authentication/login/route.js"
     ],
+    "/myProfile/[id]/[username]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/myProfile/[id]/[username]/page.js"
+    ],
+    "/api/user/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/user/route.js"
+    ],
+    "/api/blog/getLikeFavorite/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/blog/getLikeFavorite/route.js"
+    ],
+    "/myLikes/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/myLikes/page.js"
+    ],
     "/myAccount/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/myAccount/page.js"
-    ],
-    "/api/user/changeInfo/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/user/changeInfo/route.js"
-    ],
-    "/myBlogs/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/myBlogs/page.js"
     ]
   }
 }

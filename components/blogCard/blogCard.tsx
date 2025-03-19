@@ -44,7 +44,11 @@ const BlogCard = ({data}: IBlogCard) => {
         </div>
       </div>
       <div className="text-forground text-xs text-gray-500 flex justify-between items-center">
-        <div>{data.username}</div>
+        <div className="flex items-center gap-2">
+          <Image src={data.profile_image_url ?? "/assets/default_profile.avif"} width={10} height={10} alt={data.title} className="rounded-full h-4 w-4 object-cover
+          " />
+          <span>{data.username}</span>
+        </div>
         <div>{formattedDate(data.createdAt)}</div>
       </div>
     </div>

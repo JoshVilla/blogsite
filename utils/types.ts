@@ -34,4 +34,6 @@ export interface IBlog {
     favoriteByUsers: string[],
     likes: number,
     __v: number
+    profile_image_url: string
+    creator_id: string
 }

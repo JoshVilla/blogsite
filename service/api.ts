@@ -9,6 +9,10 @@ export const register = async (params: any): Promise<any> => {
   return await post("/api/authentication/register", params);
 };
 
+export const getUser = async (params: any): Promise<any> => {
+  return await post("/api/user", params);
+};
+
 // export const register = async (params: any): Promise<any> => {
 //     try {
 //       const response = await post("/api/authentication/register", params);

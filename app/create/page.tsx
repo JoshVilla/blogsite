@@ -72,7 +72,7 @@ const Page = () => {
     formData.append("title", form.getValues("title"));
     formData.append("topic_category", JSON.stringify(selectedCategories));
     formData.append("username", userState.username);
-
+    formData.append("creator_id", userState._id);
     mutation.mutate(formData);
   };
 

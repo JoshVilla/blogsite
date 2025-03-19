@@ -42,8 +42,7 @@ const Blog = () => {
 
   const blogData: IBlog | null = data?.data?.[0] ?? null;
 
-  // const isLoggedIn = () => Object.keys(userState).length > 0;
-  const isLoggedIn = () => false;
+  const isLoggedIn = () => Object.keys(userState).length > 0;
 
   const toastToLoggedIn = () => toast.warning("Login first to continue");
 
@@ -153,7 +152,11 @@ const Blog = () => {
             <div className="text-xl md:text-3xl font-bold">
               {blogData.title}
             </div>
-            <div className="text-md text-gray-500">By: {blogData.username}</div>
+            <div className="text-md text-gray-500 flex items-center gap-2 my-2">
+              <span>By: </span>
+              <Image src={blogData.profile_image_url ?? "/assets/default_profile.avif"} width={20} height={20} alt={blogData.title} className="h-6 w-6 rounded-full object-cover" />
+              <span className="cursor-pointer hover:underline" onClick={() => router.push(`/myProfile/${blogData.creator_id}/${blogData.username}`)}>{blogData.username}</span>
+            </div>
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
               <span className="text-md text-gray-500">
