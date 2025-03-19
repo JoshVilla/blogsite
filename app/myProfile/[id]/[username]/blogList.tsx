@@ -8,9 +8,11 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import {  Heart, Newspaper, ThumbsUp } from "lucide-react";
+import Categories from "@/components/categories/categories";
 const BlogList = () => {
 
   const [selectedMenu, setSelectedMenu] = useState("blogs");
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const {id, username} = useParams();
   const queryClient = useQueryClient();
 
@@ -23,24 +25,24 @@ const BlogList = () => {
 
   // Fetch My Blogs
   const blogsQuery = useQuery({
-    queryKey: ["blogs", username],
-    queryFn: () => getBlogs({ username, category: "All" }),
+    queryKey: ["blogs", username, selectedCategory],
+    queryFn: () => getBlogs({ username, category: selectedCategory }),
     enabled: selectedMenu === "blogs" && !!username, // Ensure id exists
   });
 
   // Fetch Liked Blogs
   const likesQuery = useQuery({
-    queryKey: ["likes", id],
+    queryKey: ["likes", id, selectedCategory],
     queryFn: () =>
-      getLikeFavorite({ userId: id, category: "All", action: "liked" }),
+      getLikeFavorite({ userId: id, category: selectedCategory, action: "liked" }),
     enabled: selectedMenu === "likes" && !!id,
   });
 
   // Fetch Favorite Blogs
   const favoritesQuery = useQuery({
-    queryKey: ["favorites", id],
+    queryKey: ["favorites", id, selectedCategory],
     queryFn: () =>
-      getLikeFavorite({ userId: id, category: "All", action: "favorited" }),
+      getLikeFavorite({ userId: id, category: selectedCategory, action: "favorited" }),
     enabled: selectedMenu === "favorites" && !!id,
   });
 
@@ -89,7 +91,10 @@ const BlogList = () => {
           </Button>
         ))}
       </div>
-        <Separator className="mt-2"/>
+        <Separator className="my-2"/>
+        <Categories onChange={(category) => {
+          if(category !== selectedCategory) setSelectedCategory(category)
+        }} />
       {/* Loading and Error States */}
       {activeQuery.isLoading && <p>Loading...</p>}
       {activeQuery.error && <p>Error: {activeQuery.error.message}</p>}

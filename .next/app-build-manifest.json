@@ -75,6 +75,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/myAccount/page.js"
+    ],
+    "/api/blog/blogAction/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/blog/blogAction/route.js"
     ]
   }
 }
