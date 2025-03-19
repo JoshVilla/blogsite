@@ -7,15 +7,19 @@ interface IUser {
     username: string;
     password: string;
     image_url: string | null
+    email: string,
+    isGoogleModeRegistration: boolean
 }
 
 const UserSchema = new mongoose.Schema<IUser>({
     firstname: { type: String, required: true },
-    middlename: { type: String, required: true },
+    middlename: { type: String, default: "" },
     lastname: { type: String, required: true },
+    email: { type: String, required: true },
     username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    image_url: {type: String, default: null}
+    password: { type: String, default: "" },
+    image_url: {type: String, default: null},
+    isGoogleModeRegistration: {type: Boolean, default: false}
 }, { timestamps: true });
 
 const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);

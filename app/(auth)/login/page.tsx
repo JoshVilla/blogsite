@@ -9,14 +9,23 @@ import { Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
-import { login } from "@/service/api";
+import { googleLogin, login } from "@/service/api";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/app/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 interface ILogin {
   username: string;
   password: string;
+}
+
+interface GoogleUser {
+  email: string;
+  given_name: string;
+  family_name: string;
+  picture: string;
 }
 
 const Login = () => {
@@ -27,8 +36,8 @@ const Login = () => {
     },
   });
 
-  const router = useRouter()
-  const dispatch = useDispatch()
+  const router = useRouter();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -38,13 +47,28 @@ const Login = () => {
     onSuccess: (data) => {
       toast.success(data.message);
       console.log("Login response:", data);
-     if(data.isSuccess) {
-      dispatch(setUser(data.data))
-      router.push("/")
-     }
+      if (data.isSuccess) {
+        dispatch(setUser(data.data));
+        router.push("/");
+      }
     },
     onError: (error: any) => {
       setErrorMsg(error.message || "Login failed");
+    },
+  });
+
+  const googleMutation = useMutation({
+    mutationFn: googleLogin,
+    onSuccess: (data) => {
+      if (data.isSuccess) {
+        toast.success(data.message), dispatch(setUser(data.data));
+        router.push("/");
+      } else {
+        toast.error(data.message);
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 
@@ -97,19 +121,59 @@ const Login = () => {
                         className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
                         onClick={() => setShowPassword((prev) => !prev)}
                       >
-                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                        {showPassword ? (
+                          <EyeOff size={18} />
+                        ) : (
+                          <Eye size={18} />
+                        )}
                       </button>
                     </div>
                   </FormControl>
                 </FormItem>
               )}
             />
-            {errorMsg && <div className="my-4 text-red-500 text-sm">{errorMsg}</div>}
-            <Button className="cursor-pointer" size="sm" type="submit" disabled={mutation.isPending}>
-  {mutation.isPending ? "Logging in..." : "Submit"}
-</Button>
+            {errorMsg && (
+              <div className="my-4 text-red-500 text-sm">{errorMsg}</div>
+            )}
+            <div className="text-right">
+              <span className="cursor-pointer hover:underline text-sm text-gray-400">
+                Forgot Password?
+              </span>
+            </div>
+            <Button
+              className="cursor-pointer w-full py-2"
+              size="sm"
+              type="submit"
+              disabled={mutation.isPending}
+            >
+              {mutation.isPending ? "Logging in..." : "Submit"}
+            </Button>
           </form>
         </Form>
+
+        <div className="flex items-center my-6">
+          <div className="flex-1 border-t border-gray-500"></div>
+          <span className="px-3 text-gray-500 text-sm">or</span>
+          <div className="flex-1 border-t border-gray-500"></div>
+        </div>
+        <div className="w-full flex justify-center">
+          <GoogleLogin
+            onSuccess={(credentialRes) => {
+              const { email, given_name, family_name, picture } =
+                jwtDecode<GoogleUser>(credentialRes.credential || "");
+              googleMutation.mutate({
+                email,
+                given_name,
+                family_name,
+                picture,
+              });
+            }}
+            onError={() => {
+              console.log("Failed to Login");
+              toast.error("Failed to login");
+            }}
+          />
+        </div>
       </motion.div>
     </div>
   );

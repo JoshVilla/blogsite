@@ -59,3 +59,7 @@ export const changeProfile = async (params: any): Promise<any> => {
 export const changeInfo = async (params: any): Promise<any> => {
   return await post("/api/user/changeInfo", params);
 };
+
+export const googleLogin = async (params: any): Promise<any> => {
+  return await post("/api/authentication/login/googleLogin", params);
+};

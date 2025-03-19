@@ -200,7 +200,7 @@ const Page = () => {
           </div>
 
           {/* Change Password Section */}
-          <ChangePassword />
+          {!userState.isGoogleModeRegistration && <ChangePassword />}
         </div>
       </div>
     </Container>

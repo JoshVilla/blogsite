@@ -7,11 +7,11 @@ export async function POST(request: NextRequest) {
     try {
         await connectToDatabase();
 
-        const { firstname, lastname, middlename, password, username, confirmPassword } = await request.json();
+        const { firstname, lastname, middlename, password, username, confirmPassword,email } = await request.json();
       
 
         // Validate required fields
-        if (!firstname || !lastname || !username || !password || !confirmPassword) {
+        if (!firstname || !lastname || !username || !password || !confirmPassword || !email) {
             return NextResponse.json({
                 isSuccess: false,
                 message: "All fields are required."
@@ -38,12 +38,21 @@ export async function POST(request: NextRequest) {
             }, { status: 200 });
         }
 
+        const existingEmail = await User.findOne({ email });
+        if (existingEmail) {
+            return NextResponse.json({
+                isSuccess: false,
+                message: "Email already exists."
+            }, { status: 200 });
+        }
+
         // Create new user
         const newUser = await User.create({
             firstname,
             middlename,
             lastname,
             username,
+            email,
             password: hashedPassword, // Use correct field name
         });
 

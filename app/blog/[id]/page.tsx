@@ -26,8 +26,8 @@ import { setBlog } from "@/app/redux/slices/blogSlice";
 import DeleteBlog from "../delete/delete";
 
 const Blog = () => {
-  const router = useRouter()
-  const dispatch = useDispatch()
+  const router = useRouter();
+  const dispatch = useDispatch();
   const params = useParams();
   const id = params.id;
   const userState = useSelector((state: RootState) => state.user.user as IUser); // Replace with the actual logged-in user ID
@@ -91,10 +91,15 @@ const Blog = () => {
             <div className="mb-4 flex items-center gap-4">
               <div className="flex items-center gap-2 cursor-pointer hover:underline">
                 <Edit className="h-4 w-4" />
-                <span className="text-sm font-semibold" onClick={() => {
-                  dispatch(setBlog(blogData))
-                  router.push("/blog/edit")
-                }}>Edit Blog</span>
+                <span
+                  className="text-sm font-semibold"
+                  onClick={() => {
+                    dispatch(setBlog(blogData));
+                    router.push("/blog/edit");
+                  }}
+                >
+                  Edit Blog
+                </span>
               </div>
               <div className="flex items-center gap-2 cursor-pointer hover:underline">
                 <Trash className="h-4 w-4" />
@@ -154,8 +159,25 @@ const Blog = () => {
             </div>
             <div className="text-md text-gray-500 flex items-center gap-2 my-2">
               <span>By: </span>
-              <Image src={blogData.profile_image_url ?? "/assets/default_profile.avif"} width={20} height={20} alt={blogData.title} className="h-6 w-6 rounded-full object-cover" />
-              <span className="cursor-pointer hover:underline" onClick={() => router.push(`/myProfile/${blogData.creator_id}/${blogData.username}`)}>{blogData.username}</span>
+              <Image
+                src={
+                  blogData.profile_image_url ?? "/assets/default_profile.avif"
+                }
+                width={20}
+                height={20}
+                alt={blogData.title}
+                className="h-6 w-6 rounded-full object-cover"
+              />
+              <span
+                className="cursor-pointer hover:underline"
+                onClick={() =>
+                  router.push(
+                    `/myProfile/${blogData.creator_id}/${blogData.username}`
+                  )
+                }
+              >
+                {blogData.username}
+              </span>
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
