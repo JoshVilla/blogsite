@@ -1920,6 +1920,11 @@
       line-height: var(--tw-leading, var(--text-sm--line-height));
     }
   }
+  .lg\:flex-row {
+    @media (width >= 64rem) {
+      flex-direction: row;
+    }
+  }
   .dark\:scale-0 {
     &:is(.dark *) {
       --tw-scale-x: 0%;

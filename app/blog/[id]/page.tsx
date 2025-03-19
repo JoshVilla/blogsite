@@ -110,7 +110,7 @@ const Blog = () => {
           {/* Blog Image */}
           <div className="w-full h-[300px] md:h-[400px] relative">
             <Image
-              src={blogData.image_url}
+              src={blogData.image_url ? blogData.image_url : "/assets/blog_default.webp"}
               alt="blog image"
               layout="fill"
               objectFit="contain"

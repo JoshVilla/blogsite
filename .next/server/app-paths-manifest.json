@@ -1,9 +1,9 @@
 {
-  "/api/user/route": "app/api/user/route.js",
-  "/api/authentication/login/googleLogin/route": "app/api/authentication/login/googleLogin/route.js",
   "/api/blog/route": "app/api/blog/route.js",
+  "/api/user/route": "app/api/user/route.js",
   "/myProfile/[id]/[username]/page": "app/myProfile/[id]/[username]/page.js",
-  "/myAccount/page": "app/myAccount/page.js",
+  "/(auth)/login/page": "app/(auth)/login/page.js",
   "/page": "app/page.js",
-  "/(auth)/login/page": "app/(auth)/login/page.js"
+  "/blog/[id]/page": "app/blog/[id]/page.js",
+  "/create/page": "app/create/page.js"
 }

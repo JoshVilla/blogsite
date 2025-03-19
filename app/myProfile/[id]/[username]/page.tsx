@@ -42,10 +42,10 @@ const Profile = () => {
               alt="profile_image"
               height={150}
               width={150}
-              className="absolute w-36 h-36 md:w-48 md:h-48 -bottom-16 left-10 rounded-full object-cover p-1 bg-background"
+              className="absolute w-36 h-36 md:w-48 md:h-48 -bottom-16 left-10 rounded-full object-cover p-1 bg-accent"
             />
           </div>
-          <div className="mt-24 flex gap-10 flex-col md:flex-row">
+          <div className="mt-24 flex gap-10 flex-col lg:flex-row">
             <div className="w-full md:w-64">
               <div className="text-2xl font-semibold">
                 <span>

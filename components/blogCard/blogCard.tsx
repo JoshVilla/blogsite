@@ -16,7 +16,7 @@ const BlogCard = ({data}: IBlogCard) => {
   return (
     <div className="w-60 h-auto">
       <Image
-        src={data.image_url}
+        src={data.image_url ?data.image_url : "/assets/blog_default.webp"}
         alt={data.title}
         width={240}
         height={150}
