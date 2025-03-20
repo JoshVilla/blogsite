@@ -10,10 +10,11 @@ import BlogList from "./blogList";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "@/service/api";
 import { useParams, useRouter } from "next/navigation";
-import { Pencil } from "lucide-react";
+import { Pencil, Settings, Wrench } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Profile = () => {
-  const router = useRouter()
+  const router = useRouter();
   const userState = useSelector((state: RootState) => state.user.user as IUser);
   const { id, username } = useParams();
   const { isLoading, data, error } = useQuery({
@@ -55,10 +56,22 @@ const Profile = () => {
               </div>
               <div className="text-lg text-gray-500 flex items-center gap-2">
                 {`@${profile?.username}`}
-                {userState._id === id && <Pencil className="h-4 w-4 hover:scale-110 cursor-pointer" onClick={() => router.push("/myAccount")}/>}
+                {userState._id === id && (
+                  <Pencil
+                    className="h-4 w-4 hover:scale-110 cursor-pointer"
+                    onClick={() => router.push("/myAccount")}
+                  />
+                )}
               </div>
 
-              {/* TODO ADD SETTINGS ACCOUNT PAGE UI */}
+              <Button
+              variant="link"
+                size="sm"
+                className="mt-10 flex items-center gap-2 cursor-pointer"
+                onClick={() => router.push("/myProfile/settings")}
+              >
+                <Settings className="h-4 w-4" /> Settings
+              </Button>
             </div>
             <div className="w-full">
               <div className="flex gap-10 items-center justify-start md:justify-end">
