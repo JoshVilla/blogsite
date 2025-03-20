@@ -15,9 +15,11 @@ import { setUser } from "@/app/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface ILogin {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -28,10 +30,16 @@ interface GoogleUser {
   picture: string;
 }
 
+const formSchema = z.object({
+  email: z.string().email("Invalid email format"),
+  password: z.string()
+})
+
 const Login = () => {
   const form = useForm<ILogin>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
@@ -73,7 +81,7 @@ const Login = () => {
   });
 
   const handleLogin = (data: ILogin) => {
-    if (!data.username || !data.password) {
+    if (!data.email || !data.password) {
       setErrorMsg("All fields are required");
       return;
     }
@@ -93,13 +101,15 @@ const Login = () => {
         <Form {...form}>
           <form className="space-y-6" onSubmit={form.handleSubmit(handleLogin)}>
             <FormField
-              name="username"
+              name="email"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Enter username" {...field} />
+                    <Input placeholder="Enter email" {...field} />
                   </FormControl>
+                    {/* @ts-ignore */}
+                    <p className="text-red-500 text-sm">{form.formState.errors.email?.message}</p>
                 </FormItem>
               )}
             />

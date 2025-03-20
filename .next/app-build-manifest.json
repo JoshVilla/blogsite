@@ -6,6 +6,16 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/api/blog/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/blog/route.js"
+    ],
     "/myProfile/[id]/[username]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -16,65 +26,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/user/route.js"
     ],
-    "/api/blog/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/blog/route.js"
-    ],
-    "/myAccount/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/myAccount/page.js"
-    ],
-    "/api/user/changeInfo/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/user/changeInfo/route.js"
-    ],
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
-    "/(auth)/login/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(auth)/login/page.js"
-    ],
-    "/api/authentication/login/googleLogin/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/authentication/login/googleLogin/route.js"
-    ],
-    "/create/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/create/page.js"
-    ],
-    "/api/authentication/login/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/authentication/login/route.js"
-    ],
-    "/api/blog/addBlog/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/blog/addBlog/route.js"
-    ],
     "/blog/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/blog/[id]/page.js"
     ],
-    "/api/blog/blogAction/route": [
+    "/blog/edit/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/blog/blogAction/route.js"
-    ],
-    "/api/blog/getLikeFavorite/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/blog/getLikeFavorite/route.js"
+      "static/chunks/app/blog/edit/page.js"
     ]
   }
 }

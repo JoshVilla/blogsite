@@ -78,6 +78,7 @@ const Page = () => {
       middlename: userState.middlename,
       username: userState.username,
       lastname: userState.lastname,
+      email: userState.email,
     },
   });
 
@@ -100,7 +101,7 @@ const Page = () => {
 
   return (
     <Container>
-      <TitlePage title="My Account" />
+      <TitlePage title="My Account" hasBack  />
       <div className="mt-6">
         <div className="flex gap-10 flex-col md:flex-row justify-between">
           {/* Profile Image Section */}
@@ -144,6 +145,18 @@ const Page = () => {
           <div>
             <Form {...form}>
               <form className="space-y-6" onSubmit={form.handleSubmit(handleChangeInfo)}>
+              <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input {...field} placeholder="Enter email" disabled={userState.isGoogleModeRegistration}/>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="username"

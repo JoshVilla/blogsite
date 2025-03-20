@@ -16,6 +16,8 @@ export interface IUser {
     username: string;
     password: string;
     _id: string
+    email: string,
+    isActive: boolean,
     image_url: string | null
     isGoogleModeRegistration: boolean
 }

@@ -7,16 +7,16 @@ export async function POST(request: NextRequest) {
     try {
         await connectToDatabase();
 
-        const { username, password } = await request.json();
+        const { email, password } = await request.json();
 
-        // Find user by username
-        const user = await User.findOne({ username });
+        // Find user by email
+        const user = await User.findOne({ email });
 
         // If user does not exist
         if (!user) {
             return NextResponse.json({
                 isSuccess: false,
-                message: "Invalid username or password."
+                message: "Invalid email or password."
             }, { status: 401 });
         }
 
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
         if (!isPasswordValid) {
             return NextResponse.json({
                 isSuccess: false,
-                message: "Invalid username or password."
+                message: "Invalid email or password."
             }, { status: 401 });
         }
 

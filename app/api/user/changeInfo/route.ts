@@ -5,10 +5,10 @@ import User from "@/app/models/userModel";
 export async function POST(request: NextRequest) {
   try {
     await connectToDatabase();
-    const {userId, username, firstname, middlename, lastname} = await request.json()
+    const {userId, username, firstname, middlename, lastname, email} = await request.json()
 
     const newUser = await User.findByIdAndUpdate(userId, {
-        firstname,lastname, middlename, username
+        firstname,lastname, middlename, username, email
     },{ new: true, runValidators: true })
 
     return NextResponse.json({

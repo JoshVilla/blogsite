@@ -8,7 +8,8 @@ interface IUser {
     password: string;
     image_url: string | null
     email: string,
-    isGoogleModeRegistration: boolean
+    isGoogleModeRegistration: boolean,
+    isActive: boolean
 }
 
 const UserSchema = new mongoose.Schema<IUser>({
@@ -19,7 +20,8 @@ const UserSchema = new mongoose.Schema<IUser>({
     username: { type: String, required: true, unique: true },
     password: { type: String, default: "" },
     image_url: {type: String, default: null},
-    isGoogleModeRegistration: {type: Boolean, default: false}
+    isGoogleModeRegistration: {type: Boolean, default: false},
+    isActive: {type: Boolean, default: true},
 }, { timestamps: true });
 
 const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);

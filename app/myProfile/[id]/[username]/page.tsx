@@ -57,6 +57,8 @@ const Profile = () => {
                 {`@${profile?.username}`}
                 {userState._id === id && <Pencil className="h-4 w-4 hover:scale-110 cursor-pointer" onClick={() => router.push("/myAccount")}/>}
               </div>
+
+              {/* TODO ADD SETTINGS ACCOUNT PAGE UI */}
             </div>
             <div className="w-full">
               <div className="flex gap-10 items-center justify-start md:justify-end">

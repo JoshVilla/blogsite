@@ -1,9 +1,8 @@
 {
   "/api/blog/route": "app/api/blog/route.js",
   "/api/user/route": "app/api/user/route.js",
-  "/myProfile/[id]/[username]/page": "app/myProfile/[id]/[username]/page.js",
-  "/(auth)/login/page": "app/(auth)/login/page.js",
   "/page": "app/page.js",
-  "/blog/[id]/page": "app/blog/[id]/page.js",
-  "/create/page": "app/create/page.js"
+  "/myProfile/[id]/[username]/page": "app/myProfile/[id]/[username]/page.js",
+  "/blog/edit/page": "app/blog/edit/page.js",
+  "/blog/[id]/page": "app/blog/[id]/page.js"
 }

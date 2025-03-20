@@ -4,7 +4,7 @@ import { blogAction, getBlogs } from "@/service/api";
 import { IBlog, IUser } from "@/utils/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import React from "react";
 import {
@@ -68,18 +68,21 @@ const Blog = () => {
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading blog</p>;
-  if (!blogData) return <p>No blog found</p>;
+  // if (isLoading) return <p>Loading...</p>;
+  // if (error) return <p>Error loading blog</p>;
+  // if (!blogData) return <p>No blog found</p>;
 
   // Check if the user has already liked or favorited the blog
   //@ts-ignore
-  const isLiked = blogData.likedByUsers.includes(userState.id);
+  const isLiked = blogData?.likedByUsers?.includes(userState.id);
   //@ts-ignore
-  const isFavorited = blogData.favoriteByUsers.includes(userState.id);
+  const isFavorited = blogData?.favoriteByUsers?.includes(userState.id);
 
   return (
     <div className="w-[90%] md:w-[70%] mx-auto mt-10">
+      { isLoading && <p>Loading...</p>}
+      { error &&  <p>Error loading blog</p>}
+      {!blogData && <p>No blog found</p>}
       {blogData && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -115,6 +118,7 @@ const Blog = () => {
               layout="fill"
               objectFit="contain"
               objectPosition="left"
+              priority
             />
           </div>
 
