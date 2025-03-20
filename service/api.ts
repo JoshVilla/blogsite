@@ -68,3 +68,7 @@ export const googleLogin = async (params: any): Promise<any> => {
 export const changeSettings = async (params: any): Promise<any> => {
   return await post("/api/user/changeSettings", params);
 };
+
+export const disableAccount = async (params: any): Promise<any> => {
+  return await post("/api/user/disableAccount", params);
+};

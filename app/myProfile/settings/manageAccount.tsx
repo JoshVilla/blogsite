@@ -1,5 +1,5 @@
-import { setUserSettings } from "@/app/redux/slices/userSettingsSlice";
-import { RootState } from "@/app/redux/store/store";
+import { clearUserSettings, setUserSettings } from "@/app/redux/slices/userSettingsSlice";
+import { persistor, RootState } from "@/app/redux/store/store";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -9,129 +9,166 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { changeSettings } from "@/service/api";
+import { changeSettings, disableAccount } from "@/service/api";
 import { ISettings } from "@/utils/types";
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
+import { addDays, addMonths } from "date-fns";
+import { clearUser } from "@/app/redux/slices/userSlice";
+import { clearBlog } from "@/app/redux/slices/blogSlice";
+import { useRouter } from "next/navigation";
 
-// Define the form data type
 type FormData = {
   hideBlogs: boolean;
   hideLikes: boolean;
   hideFavorite: boolean;
-  isPrivate: boolean
+  isPrivate: boolean;
 };
 
 const ManageAccount = () => {
-    const dispatch = useDispatch()
-    const settingState = useSelector((state:RootState) => state.userSettings.userSettings as ISettings)
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const settingState = useSelector(
+    (state: RootState) => state.userSettings.userSettings as ISettings
+  );
+
   const form = useForm<FormData>({
     defaultValues: {
-        hideBlogs: settingState.hideBlogs,
-        hideLikes: settingState.hideLikes,
-        hideFavorite: settingState.hideFavorite,
-        isPrivate: settingState.isPrivate
+      hideBlogs: settingState?.hideBlogs ?? false,
+      hideLikes: settingState?.hideLikes ?? false,
+      hideFavorite: settingState?.hideFavorite ?? false,
+      isPrivate: settingState?.isPrivate ?? false,
     },
   });
 
+  const [selectedDate, setSelectedDate] = useState("three-days");
+  const [calculatedDate, setCalculatedDate] = useState<string>("");
+
   const hideContent = [
-    {
-      name: "hideBlogs",
-      label: "Hide My Blogs",
-      description: "Prevent others from viewing your published blogs.",
-    },
-    {
-      name: "hideLikes",
-      label: "Hide Liked Blogs",
-      description: "Keep your liked blogs private and hidden from others.",
-    },
-    {
-      name: "hideFavorite",
-      label: "Hide Favorite Blogs",
-      description: "Conceal your favorite blogs from public view.",
-    },
-    {
-      name: "isPrivate",
-      label: "Private Account",
-      description:
-        "Restrict your profile visibility to approved followers only.",
-    },
+    { name: "hideBlogs", label: "Hide My Blogs", description: "Prevent others from viewing your published blogs." },
+    { name: "hideLikes", label: "Hide Liked Blogs", description: "Keep your liked blogs private and hidden from others." },
+    { name: "hideFavorite", label: "Hide Favorite Blogs", description: "Conceal your favorite blogs from public view." },
+    { name: "isPrivate", label: "Private Account", description: "Restrict your profile visibility to approved followers only." },
   ];
 
   const settingsMutation = useMutation({
     mutationFn: changeSettings,
     onSuccess: (data) => {
-        if(data.isSuccess) {
-            toast.success(data.message)
-            dispatch(setUserSettings(data.data))
-        }
+      if (data.isSuccess) {
+        toast.success(data.message);
+        dispatch(setUserSettings(data.data));
+      }
     },
-    onError: (error) => {
-        toast.error(error.message)
-    }
-  })
+    onError: (error: any) => {
+      toast.error(error?.message || "Something went wrong.");
+    },
+  });
+
+  const handleLogout = async () => {
+    await persistor.flush();
+    await persistor.purge();
+    dispatch(clearUser());
+    dispatch(clearBlog());
+    dispatch(clearUserSettings());
+    router.push("/");
+  };
+
+  const disableAccountMutation = useMutation({
+    mutationFn: disableAccount,
+    onSuccess: async (data) => {
+      if (data.isSuccess) {
+        toast.success(data.message);
+        await handleLogout();
+      }
+    },
+    onError: (error: any) => {
+      toast.error(error?.message || "Something went wrong.");
+    },
+  });
 
   const handleChangeSettings = (data: FormData) => {
-    settingsMutation.mutate({...data, userId: settingState.userId})
-  }
+    settingsMutation.mutate({ ...data, userId: settingState.userId });
+  };
+
+  const calculateFutureDate = (value: string) => {
+    let futureDate = new Date();
+    switch (value) {
+      case "three-days":
+        futureDate = addDays(futureDate, 3);
+        break;
+      case "week":
+        futureDate = addDays(futureDate, 7);
+        break;
+      case "month":
+        futureDate = addMonths(futureDate, 1);
+        break;
+      case "six-months":
+        futureDate = addMonths(futureDate, 6);
+        break;
+      default:
+        futureDate = new Date();
+    }
+    return futureDate.toISOString();
+  };
+
+  useEffect(() => {
+    setCalculatedDate(calculateFutureDate(selectedDate));
+  }, [selectedDate]);
+
+  const handleDisableAccount = () => {
+    const newCalculatedDate = calculateFutureDate(selectedDate);
+    disableAccountMutation.mutate({ date: newCalculatedDate, userId: settingState.userId });
+    setCalculatedDate(newCalculatedDate);
+  };
 
   return (
     <div className="flex flex-col lg:flex-row">
-      {/* Provide form context correctly */}
-      <FormProvider {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleChangeSettings)}
-          className="space-y-4"
-        >
-          {hideContent.map((content) => (
-            <FormField
-              key={content.name} // Ensure a unique key
-              control={form.control}
-              name={content.name as keyof FormData} // Ensure type safety
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 p-4 ">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>{content.label}</FormLabel>
-                    <FormDescription>{content.description}</FormDescription>
-                  </div>
-                </FormItem>
-              )}
-            />
-          ))}
-          <Button
-            type="submit"
-            size="sm"
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md"
-          >
-            Save Settings
-          </Button>
-        </form>
-      </FormProvider>
-      <div className="p-4 space-y-5">
-        <div className="text-gray-300 text-sm mb-4">
-          Need a break? You can <span className="text-orange-200">disable your account</span>  for now
+      <div className="flex-1">
+        <FormProvider {...form}>
+          <form onSubmit={form.handleSubmit(handleChangeSettings)} className="space-y-4">
+            {hideContent.map((content) => (
+              <FormField
+                key={content.name}
+                control={form.control}
+                name={content.name as keyof FormData}
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 p-4">
+                    <FormControl>
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel>{content.label}</FormLabel>
+                      <FormDescription>{content.description}</FormDescription>
+                    </div>
+                  </FormItem>
+                )}
+              />
+            ))}
+            <Button type="submit" size="sm" disabled={settingsMutation.isPending} className="mt-4 px-4 py-2 rounded-md">
+              {settingsMutation.isPending ? "Saving..." : "Save Settings"}
+            </Button>
+          </form>
+        </FormProvider>
+      </div>
+      <div className="p-4 space-y-5 flex-1">
+        <div className="text-gray-400 text-sm mb-4">
+          Need a break? You can{" "}
+          <span className="text-orange-200">temporarily disable your account</span>.
+          If you decide to reactivate it before your selected date, contact
+          the admin with your username, email, and password.
         </div>
-        <div className="flex gap-4 flex-wrap">
-        <Select defaultValue="three-days">
+        <Select value={selectedDate} onValueChange={setSelectedDate}>
           <SelectTrigger className="w-[180px]" size="sm">
             <SelectValue placeholder="Select a date" />
           </SelectTrigger>
@@ -144,14 +181,9 @@ const ManageAccount = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Button size="sm" className="bg-orange-400" variant="default">Disable Account</Button>
-        </div>
-        <div className="text-gray-300 text-sm mb-4">
-         Delete account?
-        </div>
-        <div className="flex gap-4 flex-wrap">
-        <Button size="sm"  variant="destructive">Delete Account</Button>
-        </div>
+        <Button size="sm" className="bg-orange-400" variant="default" onClick={handleDisableAccount}>
+          Disable Account
+        </Button>
       </div>
     </div>
   );

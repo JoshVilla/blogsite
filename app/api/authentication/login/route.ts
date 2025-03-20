@@ -22,6 +22,13 @@ export async function POST(request: NextRequest) {
             }, { status: 401 });
         }
 
+        if (new Date() <= new Date(userSettings.disabledUntil)) {
+            return NextResponse.json({
+                isSuccess: false,
+                message: "Account disabled, contact the admin if you wish to enable it"
+            }, { status: 401 });
+        }
+
         // Compare passwords
         const isPasswordValid = await comparePassword(password, user.password);
         if (!isPasswordValid) {
