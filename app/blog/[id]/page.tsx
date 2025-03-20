@@ -45,6 +45,7 @@ const Blog = () => {
   const isLoggedIn = () => Object.keys(userState).length > 0;
 
   const toastToLoggedIn = () => toast.warning("Login first to continue");
+  const isMyAccount = userState._id === id;
 
   // Like / Unlike Mutation
   const likeMutation = useMutation({
@@ -80,8 +81,8 @@ const Blog = () => {
 
   return (
     <div className="w-[90%] md:w-[70%] mx-auto mt-10">
-      { isLoading && <p>Loading...</p>}
-      { error &&  <p>Error loading blog</p>}
+      {isLoading && <p>Loading...</p>}
+      {error && <p>Error loading blog</p>}
       {!blogData && <p>No blog found</p>}
       {blogData && (
         <motion.div
@@ -113,7 +114,11 @@ const Blog = () => {
           {/* Blog Image */}
           <div className="w-full h-[300px] md:h-[400px] relative">
             <Image
-              src={blogData.image_url ? blogData.image_url : "/assets/blog_default.webp"}
+              src={
+                blogData.image_url
+                  ? blogData.image_url
+                  : "/assets/blog_default.webp"
+              }
               alt="blog image"
               layout="fill"
               objectFit="contain"
@@ -174,11 +179,17 @@ const Blog = () => {
               />
               <span
                 className="cursor-pointer hover:underline"
-                onClick={() =>
-                  router.push(
-                    `/myProfile/${blogData.creator_id}/${blogData.username}`
-                  )
-                }
+                onClick={() => {
+                  if (isMyAccount) {
+                    router.push(
+                      `/myProfile/${blogData.creator_id}/${blogData.username}`
+                    );
+                  } else {
+                    router.push(
+                      `/profile/${blogData.creator_id}/${blogData.username}`
+                    );
+                  }
+                }}
               >
                 {blogData.username}
               </span>

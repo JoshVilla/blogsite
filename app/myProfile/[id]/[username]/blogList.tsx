@@ -3,13 +3,16 @@ import BlogCard from "@/components/blogCard/blogCard";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { getBlogs, getLikeFavorite } from "@/service/api";
-import { IBlog,  } from "@/utils/types";
+import { IBlog, ISettings,  } from "@/utils/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import {  Heart, Newspaper, ThumbsUp } from "lucide-react";
+import {  Heart, LockKeyhole, Newspaper, ThumbsUp } from "lucide-react";
 import Categories from "@/components/categories/categories";
-const BlogList = () => {
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/redux/store/store";
+const BlogList = ({data}: {data:any}) => {
+
 
   const [selectedMenu, setSelectedMenu] = useState("blogs");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -58,17 +61,20 @@ const BlogList = () => {
     {
       label: "Blogs",
       key:"blogs",
-      icon: Newspaper
+      icon: Newspaper,
+      isHidden: data.hideBlogs
     },
     {
       label: "Likes",
       key:"likes",
-      icon: ThumbsUp
+      icon: ThumbsUp,
+      isHidden: data.hideLikes
     },
     {
       label: "Favorites",
       key:"favorites",
-      icon: Heart
+      icon: Heart,
+      isHidden: data.hideFavorite
     }
   ]
 
@@ -88,6 +94,9 @@ const BlogList = () => {
           >
             <menu.icon className="h-4 w-4" />
             {menu.label}
+            {
+              menu.isHidden && <LockKeyhole className="h-4 w-4" />
+            }
           </Button>
         ))}
       </div>

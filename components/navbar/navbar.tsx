@@ -20,10 +20,12 @@ import {
 } from "@/components/ui/alert-dialog"
 import { IUser } from '@/utils/types'
 import { clearBlog } from '@/app/redux/slices/blogSlice'
+import { clearUserSettings } from '@/app/redux/slices/userSettingsSlice'
 
 const Navbar = () => {
   const dispatch = useDispatch()
   const router = useRouter()
+  const allState = useSelector((state: RootState) => state)
   const userState = useSelector((state: RootState) => state.user.user as IUser)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
@@ -32,11 +34,15 @@ const Navbar = () => {
     await persistor.purge()
     dispatch(clearUser())
     dispatch(clearBlog())
+    dispatch(clearUserSettings())
     router.push("/")
   }
 
+  console.log(allState)
   useEffect(() => {
     setIsLoggedIn(Object.keys(userState).length > 0) // Fix: Check if userState is not empty
+    // setIsLoggedIn(false) // Fix: Check if userState is not empty
+
   }, [userState])
 
   return (

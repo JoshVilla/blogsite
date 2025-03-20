@@ -2,6 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/app/models/userModel";
 import { comparePassword } from "@/utils/helpers";
+import Settings from "@/app/models/settingModel";
 
 export async function POST(request: NextRequest) {
     try {
@@ -11,6 +12,7 @@ export async function POST(request: NextRequest) {
 
         // Find user by email
         const user = await User.findOne({ email });
+        const userSettings = await Settings.findOne({email})
 
         // If user does not exist
         if (!user) {
@@ -33,7 +35,10 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
             isSuccess: true,
             message: "Login successful",
-            data: user
+            data: {
+                user,
+                userSettings
+            }
         });
 
     } catch (error) {

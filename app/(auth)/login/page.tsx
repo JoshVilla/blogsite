@@ -11,12 +11,13 @@ import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 import { googleLogin, login } from "@/service/api";
 import { useDispatch } from "react-redux";
-import { setUser } from "@/app/redux/slices/userSlice";
+import { clearUser, setUser } from "@/app/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { setUserSettings } from "@/app/redux/slices/userSettingsSlice";
 
 interface ILogin {
   email: string;
@@ -32,8 +33,8 @@ interface GoogleUser {
 
 const formSchema = z.object({
   email: z.string().email("Invalid email format"),
-  password: z.string()
-})
+  password: z.string(),
+});
 
 const Login = () => {
   const form = useForm<ILogin>({
@@ -54,9 +55,9 @@ const Login = () => {
     mutationFn: login,
     onSuccess: (data) => {
       toast.success(data.message);
-      console.log("Login response:", data);
       if (data.isSuccess) {
-        dispatch(setUser(data.data));
+        dispatch(setUser(data.data.user));
+        dispatch(setUserSettings(data.data.userSettings))
         router.push("/");
       }
     },
@@ -69,7 +70,9 @@ const Login = () => {
     mutationFn: googleLogin,
     onSuccess: (data) => {
       if (data.isSuccess) {
-        toast.success(data.message), dispatch(setUser(data.data));
+        toast.success(data.message);
+        dispatch(setUser(data.data.user))
+        dispatch(setUserSettings(data.data.userSettings))
         router.push("/");
       } else {
         toast.error(data.message);
@@ -108,8 +111,10 @@ const Login = () => {
                   <FormControl>
                     <Input placeholder="Enter email" {...field} />
                   </FormControl>
-                    {/* @ts-ignore */}
-                    <p className="text-red-500 text-sm">{form.formState.errors.email?.message}</p>
+                  {/* @ts-ignore */}
+                  <p className="text-red-500 text-sm">
+                    {form.formState.errors.email?.message}
+                  </p>
                 </FormItem>
               )}
             />

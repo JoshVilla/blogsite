@@ -26,7 +26,8 @@ const Profile = () => {
     enabled: !!id, // Only fetch when id exists
   });
 
-  const profile = data?.data[0] || null;
+  const isMyAccount = userState._id === id;
+  const profile = data?.data || null;
   return (
     <Container>
       {profile && (
@@ -56,7 +57,7 @@ const Profile = () => {
               </div>
               <div className="text-lg text-gray-500 flex items-center gap-2">
                 {`@${profile?.username}`}
-                {userState._id === id && (
+                {isMyAccount && (
                   <Pencil
                     className="h-4 w-4 hover:scale-110 cursor-pointer"
                     onClick={() => router.push("/myAccount")}
@@ -87,7 +88,7 @@ const Profile = () => {
                 </div>
               </div>
               <div className="mt-4">
-                <BlogList />
+                <BlogList data={profile}/>
               </div>
             </div>
           </div>

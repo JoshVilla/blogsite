@@ -1,7 +1,14 @@
 {
-  "/blog/edit/page": "app/blog/edit/page.js",
+  "/api/user/route": "app/api/user/route.js",
+  "/api/blog/route": "app/api/blog/route.js",
+  "/api/authentication/login/route": "app/api/authentication/login/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/user/changeSettings/route": "app/api/user/changeSettings/route.js",
+  "/api/blog/getLikeFavorite/route": "app/api/blog/getLikeFavorite/route.js",
+  "/page": "app/page.js",
+  "/(auth)/login/page": "app/(auth)/login/page.js",
   "/myProfile/[id]/[username]/page": "app/myProfile/[id]/[username]/page.js",
+  "/profile/[id]/[username]/page": "app/profile/[id]/[username]/page.js",
   "/blog/[id]/page": "app/blog/[id]/page.js",
-  "/myAccount/page": "app/myAccount/page.js",
   "/myProfile/settings/page": "app/myProfile/settings/page.js"
 }

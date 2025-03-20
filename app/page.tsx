@@ -25,7 +25,6 @@ export default function Home() {
   const [themeName, setThemeName] = useState("")
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-
   const handleChangeTheme = () => {
     setThemeName(prev => prev === "light" ? "dark" : "light")
     if(themeName === "light") {
@@ -42,6 +41,8 @@ export default function Home() {
 
     useEffect(() => {
       setIsLoggedIn(Object.keys(userState).length > 0) // Fix: Check if userState is not empty
+      // setIsLoggedIn(false) // Fix: Check if userState is not empty
+
     }, [userState])
   
   return (

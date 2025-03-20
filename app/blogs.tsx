@@ -10,6 +10,7 @@ import { IBlog } from "@/utils/types";
 import BlogCard from "@/components/blogCard/blogCard";
 import PaginationComponent from "@/components/pagination/Pagination";
 import { useDispatch } from "react-redux";
+import { clearUser } from "./redux/slices/userSlice";
 
 const Blogs = () => {
   const dispatch = useDispatch()

@@ -1,3 +1,5 @@
+import { setUserSettings } from "@/app/redux/slices/userSettingsSlice";
+import { RootState } from "@/app/redux/store/store";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -17,55 +19,81 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { changeSettings } from "@/service/api";
+import { ISettings } from "@/utils/types";
+import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
 
 // Define the form data type
 type FormData = {
-  blogs: boolean;
-  likes: boolean;
-  favorites: boolean;
+  hideBlogs: boolean;
+  hideLikes: boolean;
+  hideFavorite: boolean;
+  isPrivate: boolean
 };
 
 const ManageAccount = () => {
+    const dispatch = useDispatch()
+    const settingState = useSelector((state:RootState) => state.userSettings.userSettings as ISettings)
   const form = useForm<FormData>({
     defaultValues: {
-      blogs: false,
-      likes: false,
-      favorites: false,
+        hideBlogs: settingState.hideBlogs,
+        hideLikes: settingState.hideLikes,
+        hideFavorite: settingState.hideFavorite,
+        isPrivate: settingState.isPrivate
     },
   });
 
   const hideContent = [
     {
-      name: "blogs",
+      name: "hideBlogs",
       label: "Hide My Blogs",
       description: "Prevent others from viewing your published blogs.",
     },
     {
-      name: "likes",
+      name: "hideLikes",
       label: "Hide Liked Blogs",
       description: "Keep your liked blogs private and hidden from others.",
     },
     {
-      name: "favorites",
+      name: "hideFavorite",
       label: "Hide Favorite Blogs",
       description: "Conceal your favorite blogs from public view.",
     },
     {
-      name: "private",
+      name: "isPrivate",
       label: "Private Account",
       description:
         "Restrict your profile visibility to approved followers only.",
     },
   ];
 
+  const settingsMutation = useMutation({
+    mutationFn: changeSettings,
+    onSuccess: (data) => {
+        if(data.isSuccess) {
+            toast.success(data.message)
+            dispatch(setUserSettings(data.data))
+        }
+    },
+    onError: (error) => {
+        toast.error(error.message)
+    }
+  })
+
+  const handleChangeSettings = (data: FormData) => {
+    settingsMutation.mutate({...data, userId: settingState.userId})
+  }
+
   return (
     <div className="flex flex-col lg:flex-row">
       {/* Provide form context correctly */}
       <FormProvider {...form}>
         <form
-          onSubmit={form.handleSubmit((data) => console.log(data))}
+          onSubmit={form.handleSubmit(handleChangeSettings)}
           className="space-y-4"
         >
           {hideContent.map((content) => (

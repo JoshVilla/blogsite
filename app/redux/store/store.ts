@@ -1,4 +1,5 @@
 import userReducer from "@/app/redux/slices/userSlice";
+import userSettingsReducer from "@/app/redux/slices/userSettingsSlice"
 import blogReducer from "@/app/redux/slices/blogSlice"
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage"; // ✅ Uses localStorage
@@ -7,13 +8,14 @@ import { persistReducer, persistStore } from "redux-persist";
 const persistConfig = {
   key: "root", // ✅ Keep as "root" since we have multiple slices
   storage,
-  whitelist: ["user", "blog"], // ✅ Persist both user & graph slices
+  whitelist: ["user", "blog", "userSettings"], // ✅ Persist both user & graph slices
 };
 
 // ✅ Combine Reducers
 const rootReducer = combineReducers({
  user: userReducer,
- blog: blogReducer
+ blog: blogReducer,
+ userSettings: userSettingsReducer
 });
 
 // ✅ Apply persistReducer to combined reducer

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/app/models/userModel";
 import { hashPassword } from "@/utils/helpers";
+import Settings from "@/app/models/settingModel";
 
 export async function POST(request: NextRequest) {
     try {
@@ -56,8 +57,16 @@ export async function POST(request: NextRequest) {
             password: hashedPassword, // Use correct field name
         });
 
+        const userSettings = await Settings.create({
+            userId: newUser._id,
+            email: newUser.email
+        })
+
         return NextResponse.json({
-            data: newUser,
+            data: {
+                user:newUser,
+                userSettings
+            },
             isSuccess: true,
             message: "User registered successfully."
         }, { status: 201 });

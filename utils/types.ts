@@ -40,3 +40,13 @@ export interface IBlog {
     profile_image_url: string
     creator_id: string
 }
+
+export interface ISettings {
+    hideBlogs: boolean;
+    hideLikes: boolean;
+    hideFavorite: boolean;
+    userId: string;
+    email: string,
+    disabledUntil: string | null
+    isPrivate: boolean
+  }
