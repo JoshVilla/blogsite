@@ -22,6 +22,7 @@ export async function POST(request: NextRequest) {
             }, { status: 401 });
         }
 
+        // if the account is disabled
         if (new Date() <= new Date(userSettings.disabledUntil)) {
             return NextResponse.json({
                 isSuccess: false,

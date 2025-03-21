@@ -7,6 +7,7 @@ import { SquareUserRoundIcon, UserPen } from "lucide-react";
 import React, { useState } from "react";
 import EditInfo from "./editInfo";
 import ManageAccount from "./manageAccount";
+import Loading from "./loading";
 
 const Page = () => {
   const [selectedTab, setSelectedTab] = useState("editInfo");
@@ -38,7 +39,9 @@ const Page = () => {
               variant="link"
               size="sm"
               className={`cursor-pointer flex items-center gap-2 ${
-                selectedTab === item.key ? "text-gray-300 font-bold" : "text-gray-400"
+                selectedTab === item.key
+                  ? "text-gray-300 font-bold"
+                  : "text-gray-400"
               }`}
               onClick={() => setSelectedTab(item.key)}
             >

@@ -1,8 +1,7 @@
 "use client";
 import Container from "@/components/container/container";
-import TitlePage from "@/components/titlePage/titlePage";
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store/store";
 import { IUser } from "@/utils/types";
@@ -12,22 +11,25 @@ import { getUser } from "@/service/api";
 import { useParams, useRouter } from "next/navigation";
 import { Pencil, Settings, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Loading from "./loading";
 
 const Profile = () => {
   const router = useRouter();
   const userState = useSelector((state: RootState) => state.user.user as IUser);
   const { id, username } = useParams();
-  const { isLoading, data, error } = useQuery({
+  const { isLoading, data } = useQuery({
     queryKey: ["user", id],
     queryFn: async () => {
       if (!id) throw new Error("Missing user ID");
       return getUser({ id });
     },
-    enabled: !!id, // Only fetch when id exists
+    enabled: !!id,
   });
 
   const isMyAccount = userState._id === id;
   const profile = data?.data || null;
+
+  if (isLoading || !profile) return <Loading />;
   return (
     <Container>
       {profile && (
@@ -66,7 +68,7 @@ const Profile = () => {
               </div>
 
               <Button
-              variant="link"
+                variant="link"
                 size="sm"
                 className="mt-10 flex items-center gap-2 cursor-pointer"
                 onClick={() => router.push("/myProfile/settings")}
@@ -88,7 +90,7 @@ const Profile = () => {
                 </div>
               </div>
               <div className="mt-4">
-                <BlogList data={profile}/>
+                <BlogList data={profile} />
               </div>
             </div>
           </div>

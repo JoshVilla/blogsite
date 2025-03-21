@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store/store";
 import { setBlog } from "@/app/redux/slices/blogSlice";
 import DeleteBlog from "../delete/delete";
+import Loading from "./loading";
 
 const Blog = () => {
   const router = useRouter();
@@ -79,11 +80,10 @@ const Blog = () => {
   //@ts-ignore
   const isFavorited = blogData?.favoriteByUsers?.includes(userState.id);
 
+  if (isLoading) return <Loading />;
+
   return (
     <div className="w-[90%] md:w-[70%] mx-auto mt-10">
-      {isLoading && <p>Loading...</p>}
-      {error && <p>Error loading blog</p>}
-      {!blogData && <p>No blog found</p>}
       {blogData && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}

@@ -21,9 +21,10 @@ import { useMutation } from "@tanstack/react-query";
 import { editBlog } from "@/service/api";
 import { toast } from "sonner";
 import { setBlog } from "@/app/redux/slices/blogSlice";
+import Container from "@/components/container/container";
 
 const Page = () => {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const userState = useSelector((state: RootState) => state.user.user as IUser);
   const blogState = useSelector((state: RootState) => state.blog.blog as IBlog);
   const form = useForm({
@@ -41,7 +42,7 @@ const Page = () => {
     mutationFn: editBlog,
     onSuccess: (data) => {
       toast.success(data.message);
-      dispatch(setBlog(data.data))
+      dispatch(setBlog(data.data));
     },
     onError: (error) => {
       toast.error(error.message);
@@ -71,7 +72,7 @@ const Page = () => {
     formData.append("title", form.getValues("title"));
     formData.append("topic_category", JSON.stringify(selectedCategories));
     formData.append("username", userState.username);
-    formData.append("id", blogState._id )
+    formData.append("id", blogState._id);
 
     mutation.mutate(formData);
   };
@@ -90,13 +91,10 @@ const Page = () => {
     setContentText(blogState.content);
   }, [blogState]);
 
+  // TODO ADD LOADING UI
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="w-[90%] md:w-[50%] mx-auto mb-10"
-    >
+    <Container>
       <div className="mt-10">
         <div className="text-xl md:text-2xl font-semibold mb-6">Edit Blog</div>
 
@@ -209,7 +207,7 @@ const Page = () => {
           </Button>
         </div>
       </div>
-    </motion.div>
+    </Container>
   );
 };
 

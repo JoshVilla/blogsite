@@ -20,6 +20,9 @@ import { IUser } from "@/utils/types";
 import { useMutation } from "@tanstack/react-query";
 import { addBlog } from "@/service/api";
 import { toast } from "sonner";
+import Container from "@/components/container/container";
+
+// TODO ADDLOADING UI
 
 const Page = () => {
   const userState = useSelector((state: RootState) => state.user.user as IUser);
@@ -78,19 +81,18 @@ const Page = () => {
 
   const handleChooseCategory = (value: string) => {
     setSelectedCategories((prev) =>
-      prev.includes(value) ? prev.filter((cat) => cat !== value) : [...prev, value]
+      prev.includes(value)
+        ? prev.filter((cat) => cat !== value)
+        : [...prev, value]
     );
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="w-[90%] md:w-[50%] mx-auto mb-10"
-    >
+    <Container>
       <div className="mt-10">
-        <div className="text-xl md:text-2xl font-semibold mb-6">Create Topic</div>
+        <div className="text-xl md:text-2xl font-semibold mb-6">
+          Create Topic
+        </div>
 
         {/* Category Selection */}
         <div>
@@ -118,7 +120,11 @@ const Page = () => {
                     key={index}
                     className="cursor-pointer"
                     size={"sm"}
-                    variant={selectedCategories.includes(category.label) ? "default" : "outline"}
+                    variant={
+                      selectedCategories.includes(category.label)
+                        ? "default"
+                        : "outline"
+                    }
                     onClick={() => handleChooseCategory(category.label)}
                   >
                     {category.label}
@@ -157,7 +163,9 @@ const Page = () => {
                         const file = e.target.files?.[0] || null;
                         form.setValue("image", file); // Store file
                         form.trigger("image");
-                        setCoverPreview(file ? URL.createObjectURL(file) : null);
+                        setCoverPreview(
+                          file ? URL.createObjectURL(file) : null
+                        );
                       }}
                     />
                   </FormControl>
@@ -177,17 +185,22 @@ const Page = () => {
         {/* Content Editor */}
         <div className="mt-10 border p-4 rounded-lg">
           <div className="text-lg font-semibold mb-4">Content</div>
-          <TiptapEditor onChange={handleEditorChange} contentValue=""/>
+          <TiptapEditor onChange={handleEditorChange} contentValue="" />
         </div>
 
         {/* Submit Button */}
         <div className="flex items-center justify-end mt-6">
-          <Button size="sm" className="cursor-pointer" onClick={handleAddTopic} disabled={mutation.isPending}>
+          <Button
+            size="sm"
+            className="cursor-pointer"
+            onClick={handleAddTopic}
+            disabled={mutation.isPending}
+          >
             {mutation.isPending ? "Adding..." : "Add"}
           </Button>
         </div>
       </div>
-    </motion.div>
+    </Container>
   );
 };
 
