@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { followUser } from "@/service/api";
 import { IUser } from "@/utils/types";
 import { useMutation } from "@tanstack/react-query";
+import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -13,11 +14,12 @@ interface IFollowingFollowers {
   data: any;
 }
 const FollowingFollowers = ({ data }: IFollowingFollowers) => {
+  const router = useRouter();
+  const params = useParams();
   const dispatch = useDispatch();
   const userState = useSelector((state: RootState) => state.user.user as IUser);
   const [isFollowed, setIsFollowed] = useState(data.isFollowed);
   const [followersCount, setFollowersCount] = useState(data.followers);
-
   const followMutation = useMutation({
     mutationFn: followUser,
     onSuccess: (data) => {
@@ -43,15 +45,17 @@ const FollowingFollowers = ({ data }: IFollowingFollowers) => {
       </Button>
       <div className="flex items-center gap-10 ">
         <div className="flex flex-col items-center">
-          <div className="font-bold">{`${Number(
-            followersCount
-          ).toLocaleString()}`}</div>
+          <div
+            className="font-bold cursor-pointer hover:scale-110"
+            onClick={() => router.push(`/profile/followers/${params.id}`)}
+          >{`${Number(followersCount).toLocaleString()}`}</div>
           <div>Followers</div>
         </div>
         <div className="flex flex-col items-center">
-          <div className="font-bold">{`${Number(
-            data.following
-          ).toLocaleString()}`}</div>
+          <div
+            className="font-bold cursor-pointer hover:scale-110"
+            onClick={() => router.push(`/profile/following/${params.id}`)}
+          >{`${Number(data.following).toLocaleString()}`}</div>
           <div>Following</div>
         </div>
       </div>

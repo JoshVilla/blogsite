@@ -59,12 +59,6 @@ const Profile = () => {
               </div>
               <div className="text-lg text-gray-500 flex items-center gap-2">
                 {`@${profile?.username}`}
-                {isMyAccount && (
-                  <Pencil
-                    className="h-4 w-4 hover:scale-110 cursor-pointer"
-                    onClick={() => router.push("/myAccount")}
-                  />
-                )}
               </div>
 
               <Button
@@ -79,15 +73,21 @@ const Profile = () => {
             <div className="w-full">
               <div className="flex gap-10 items-center justify-start md:justify-end">
                 <div className="flex flex-col items-center">
-                  <div className="font-bold">{`${Number(
-                    userState.followers
-                  ).toLocaleString()}`}</div>
+                  <div
+                    className="font-bold cursor-pointer hover:scale-110"
+                    onClick={() =>
+                      router.push(`/profile/followers/${userState._id}`)
+                    }
+                  >{`${Number(userState.followers).toLocaleString()}`}</div>
                   <div>Followers</div>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="font-bold">{`${Number(
-                    userState.following
-                  ).toLocaleString()}`}</div>
+                  <div
+                    className="font-bold cursor-pointer hover:scale-110"
+                    onClick={() =>
+                      router.push(`/profile/following/${userState._id}`)
+                    }
+                  >{`${Number(userState.following).toLocaleString()}`}</div>
                   <div>Following</div>
                 </div>
               </div>

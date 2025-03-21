@@ -35,45 +35,45 @@ export async function POST(request: NextRequest) {
         isSuccess: true,
         message: "Login successful",
       });
-    }
+    } else {
+      // If user does not exist, create a new one
+      const username =
+        given_name.split(" ")[0].toLowerCase() +
+        Math.floor(100000 + Math.random() * 9000);
 
-    // If user does not exist, create a new one
-    const username =
-      given_name.split(" ")[0].toLowerCase() +
-      Math.floor(100000 + Math.random() * 9000);
+      const user = await User.create({
+        firstname: given_name,
+        lastname: family_name,
+        username,
+        isGoogleModeRegistration: true,
+        image_url: picture,
+        email,
+      });
 
-    const user = await User.create({
-      firstname: given_name,
-      lastname: family_name,
-      username,
-      isGoogleModeRegistration: true,
-      image_url: picture,
-      email,
-    });
+      await FollowersFollowing.create({
+        userId: user._id,
+        followers: [],
+        following: [],
+      });
 
-    await FollowersFollowing.create({
-      userId: user._id,
-      followers: [],
-      following: [],
-    });
+      const userSettings = await Settings.create({
+        userId: user._id,
+        email,
+      });
 
-    const userSettings = await Settings.create({
-      userId: user._id,
-      email,
-    });
-
-    return NextResponse.json({
-      data: {
-        user: {
-          ...user.toObject(),
-          following: 0,
-          followers: 0,
+      return NextResponse.json({
+        data: {
+          user: {
+            ...user.toObject(),
+            following: 0,
+            followers: 0,
+          },
+          userSettings,
         },
-        userSettings,
-      },
-      isSuccess: true,
-      message: "Your account has been registered",
-    });
+        isSuccess: true,
+        message: "Your account has been registered",
+      });
+    }
   } catch (error) {
     console.error("Error in authentication:", error);
     return NextResponse.json(

@@ -42,7 +42,7 @@ export default function Home() {
     setIsLoggedIn(Object.keys(userState).length > 0); // Fix: Check if userState is not empty
     // setIsLoggedIn(false) // Fix: Check if userState is not empty
   }, [userState]);
-  // TODO ADD LOADING UI
+
   return (
     <div className="relative h-screen pb-10">
       <div className="w-[90%] md:w-[70%] mx-auto ">

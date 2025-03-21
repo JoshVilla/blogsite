@@ -75,3 +75,7 @@ export const disableAccount = async (params: any): Promise<any> => {
 export const followUser = async (params: any): Promise<any> => {
   return await post("/api/user/followUser", params);
 };
+
+export const getFollowing = async (params: any): Promise<any> => {
+  return await post("/api/user/getFollowersAndFollowing", params);
+};
