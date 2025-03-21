@@ -21,7 +21,7 @@ const Loading = () => {
             </div>
             <div className="w-full md:w-64 space-y-6">
               {arrCount.map((_, index: number) => (
-                <div className="space-y-2">
+                <div className="space-y-2" key={index}>
                   <Skeleton className="h-2 w-32" key={index} />
                   <Skeleton className="h-4 w-full" />
                 </div>

@@ -12,6 +12,7 @@ import { getUser } from "@/service/api";
 import { useParams, useRouter } from "next/navigation";
 import { Pencil, Settings, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import FollowingFollowers from "./followingFollowers";
 
 const Profile = () => {
   const router = useRouter();
@@ -21,13 +22,13 @@ const Profile = () => {
     queryKey: ["user", id],
     queryFn: async () => {
       if (!id) throw new Error("Missing user ID");
-      return getUser({ id });
+      return getUser({ id, accountId: userState._id });
     },
     enabled: !!id, // Only fetch when id exists
   });
 
   const isMyAccount = userState._id === id;
-  const profile = data?.data || null;
+  const profile: IUser | null = data?.data || null;
   return (
     <Container>
       {profile && (
@@ -75,18 +76,7 @@ const Profile = () => {
               )}
             </div>
             <div className="w-full">
-              <div className="flex gap-10 items-center justify-start md:justify-end">
-                <div className="flex flex-col items-center">
-                  <div className="font-bold">{`${Number(
-                    "10000"
-                  ).toLocaleString()}`}</div>
-                  <div>Followers</div>
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="font-bold">100</div>
-                  <div>Following</div>
-                </div>
-              </div>
+              <FollowingFollowers data={profile} />
               <div className="mt-4">
                 <BlogList data={profile} />
               </div>

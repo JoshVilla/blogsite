@@ -27,7 +27,7 @@ const Profile = () => {
   });
 
   const isMyAccount = userState._id === id;
-  const profile = data?.data || null;
+  const profile: IUser | null = data?.data || null;
 
   if (isLoading || !profile) return <Loading />;
   return (
@@ -80,12 +80,14 @@ const Profile = () => {
               <div className="flex gap-10 items-center justify-start md:justify-end">
                 <div className="flex flex-col items-center">
                   <div className="font-bold">{`${Number(
-                    "10000"
+                    userState.followers
                   ).toLocaleString()}`}</div>
                   <div>Followers</div>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="font-bold">100</div>
+                  <div className="font-bold">{`${Number(
+                    userState.following
+                  ).toLocaleString()}`}</div>
                   <div>Following</div>
                 </div>
               </div>

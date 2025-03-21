@@ -46,7 +46,8 @@ const Blog = () => {
   const isLoggedIn = () => Object.keys(userState).length > 0;
 
   const toastToLoggedIn = () => toast.warning("Login first to continue");
-  const isMyAccount = userState._id === id;
+
+  const isMyAccount = userState._id === blogData?.creator_id;
 
   // Like / Unlike Mutation
   const likeMutation = useMutation({

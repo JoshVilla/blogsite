@@ -3,57 +3,85 @@ import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/app/models/userModel";
 import { comparePassword } from "@/utils/helpers";
 import Settings from "@/app/models/settingModel";
+import FollowersFollowing from "@/app/models/userFollowersFollowingModel";
 
 export async function POST(request: NextRequest) {
-    try {
-        await connectToDatabase();
+  try {
+    await connectToDatabase();
 
-        const { email, password } = await request.json();
+    const { email, password } = await request.json();
 
-        // Find user by email
-        const user = await User.findOne({ email });
-        const userSettings = await Settings.findOne({email})
+    // Find user by email
+    const user = await User.findOne({ email });
+    const userSettings = await Settings.findOne({ email });
+    const getFollowersFollowing = await FollowersFollowing.findOne({
+      userId: user._id,
+    });
 
-        // If user does not exist
-        if (!user) {
-            return NextResponse.json({
-                isSuccess: false,
-                message: "Invalid email or password."
-            }, { status: 401 });
-        }
+    console.log(
+      getFollowersFollowing.following.length || 0,
+      getFollowersFollowing?.following?.length || 0
+    );
 
-        // if the account is disabled
-        if (new Date() <= new Date(userSettings.disabledUntil)) {
-            return NextResponse.json({
-                isSuccess: false,
-                message: "Account disabled, contact the admin if you wish to enable it"
-            }, { status: 401 });
-        }
+    const followingCount = getFollowersFollowing?.following?.length || 0;
+    const followersCount = getFollowersFollowing?.followers?.length || 0;
 
-        // Compare passwords
-        const isPasswordValid = await comparePassword(password, user.password);
-        if (!isPasswordValid) {
-            return NextResponse.json({
-                isSuccess: false,
-                message: "Invalid email or password."
-            }, { status: 401 });
-        }
-
-        // Success response
-        return NextResponse.json({
-            isSuccess: true,
-            message: "Login successful",
-            data: {
-                user,
-                userSettings
-            }
-        });
-
-    } catch (error) {
-        console.error("Login Error:", error);
-        return NextResponse.json({
-            isSuccess: false,
-            message: "Internal Server Error"
-        }, { status: 500 });
+    // If user does not exist
+    if (!user) {
+      return NextResponse.json(
+        {
+          isSuccess: false,
+          message: "Invalid email or password.",
+        },
+        { status: 401 }
+      );
     }
+
+    // if the account is disabled
+    if (new Date() <= new Date(userSettings.disabledUntil)) {
+      return NextResponse.json(
+        {
+          isSuccess: false,
+          message:
+            "Account disabled, contact the admin if you wish to enable it",
+        },
+        { status: 401 }
+      );
+    }
+
+    // Compare passwords
+    const isPasswordValid = await comparePassword(password, user.password);
+    if (!isPasswordValid) {
+      return NextResponse.json(
+        {
+          isSuccess: false,
+          message: "Invalid email or password.",
+        },
+        { status: 401 }
+      );
+    }
+    const userObject = user.toObject();
+    // Success response
+    return NextResponse.json({
+      isSuccess: true,
+      message: "Login successful",
+      data: {
+        user: {
+          ...userObject,
+          following: followingCount,
+          followers: followersCount,
+        },
+        userSettings,
+      },
+    });
+  } catch (error) {
+    console.error("Login Error:", error);
+    return NextResponse.json(
+      {
+        isSuccess: false,
+        message: "Internal Server Error",
+      },
+      { status: 500 }
+    );
+  }
 }

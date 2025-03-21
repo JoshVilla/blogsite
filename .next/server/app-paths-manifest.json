@@ -1,8 +1,11 @@
 {
+  "/api/user/route": "app/api/user/route.js",
   "/api/blog/route": "app/api/blog/route.js",
-  "/myProfile/settings/page": "app/myProfile/settings/page.js",
-  "/create/page": "app/create/page.js",
+  "/api/user/followUser/route": "app/api/user/followUser/route.js",
+  "/api/authentication/login/googleLogin/route": "app/api/authentication/login/googleLogin/route.js",
   "/page": "app/page.js",
+  "/profile/[id]/[username]/page": "app/profile/[id]/[username]/page.js",
+  "/(auth)/login/page": "app/(auth)/login/page.js",
   "/blog/[id]/page": "app/blog/[id]/page.js",
-  "/blog/edit/page": "app/blog/edit/page.js"
+  "/myProfile/[id]/[username]/page": "app/myProfile/[id]/[username]/page.js"
 }

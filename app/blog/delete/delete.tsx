@@ -20,10 +20,9 @@ import { Button } from "@/components/ui/button";
 import { IBlog } from "@/utils/types";
 
 interface IDelete {
-  data: IBlog
+  data: IBlog;
 }
-const DeleteBlog = ({data}: IDelete) => {
-
+const DeleteBlog = ({ data }: IDelete) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const deleteMutation = useMutation({
@@ -31,8 +30,8 @@ const DeleteBlog = ({data}: IDelete) => {
     onSuccess: (data) => {
       if (data.isSuccess) {
         toast.success(data.message);
-        setOpen(false)
-        router.push("/myBlogs");
+        setOpen(false);
+        router.back();
       }
     },
     onError: (error) => {
@@ -41,7 +40,7 @@ const DeleteBlog = ({data}: IDelete) => {
   });
 
   const handleDelete = () => {
-    deleteMutation.mutate({id: data._id, image_url: data.image_url})
+    deleteMutation.mutate({ id: data._id, image_url: data.image_url });
   };
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
