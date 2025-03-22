@@ -1,4 +1,5 @@
-import {format} from 'date-fns'
+import { format } from "date-fns";
+import type { Metadata } from "next";
 
 export const getCloudinaryPublicId = (url: string) => {
   if (!url) return null;
@@ -26,6 +27,12 @@ export const passwordValidation = (
 };
 
 export const formattedDate = (date: string) => {
-  return format(new Date(date), "MM/dd/yyyy")
-}
+  return format(new Date(date), "MM/dd/yyyy");
+};
 
+export const getMetadata = (title: string, description?: string): Metadata => {
+  return {
+    title: `${title || "Blogify"}`,
+    description: description || "Be updated on what is happening",
+  };
+};

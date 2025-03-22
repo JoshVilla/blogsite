@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import EditInfo from "./editInfo";
 import ManageAccount from "./manageAccount";
 import Loading from "./loading";
+import useTitlePage from "@/hooks/useTitlePage";
 
 const Page = () => {
   const [selectedTab, setSelectedTab] = useState("editInfo");
@@ -26,6 +27,8 @@ const Page = () => {
       component: <ManageAccount />,
     },
   ];
+
+  useTitlePage("Settings");
 
   return (
     <Container>

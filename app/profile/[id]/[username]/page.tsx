@@ -13,6 +13,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Pencil, Settings, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FollowingFollowers from "./followingFollowers";
+import useTitlePage from "@/hooks/useTitlePage";
 
 const Profile = () => {
   const router = useRouter();
@@ -29,6 +30,7 @@ const Profile = () => {
 
   const isMyAccount = userState._id === id;
   const profile: IUser | null = data?.data || null;
+  useTitlePage("Profile");
   return (
     <Container>
       {profile && (
@@ -76,7 +78,7 @@ const Profile = () => {
               )}
             </div>
             <div className="w-full">
-              <FollowingFollowers data={profile} />
+              <FollowingFollowers data={profile} isMyAccount={isMyAccount} />
               <div className="mt-4">
                 <BlogList data={profile} />
               </div>

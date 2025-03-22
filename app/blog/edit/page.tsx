@@ -91,8 +91,6 @@ const Page = () => {
     setContentText(blogState.content);
   }, [blogState]);
 
-  // TODO ADD LOADING UI
-
   return (
     <Container>
       <div className="mt-10">

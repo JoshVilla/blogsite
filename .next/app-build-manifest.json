@@ -16,31 +16,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/blog/route.js"
     ],
-    "/(auth)/login/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(auth)/login/page.js"
-    ],
-    "/api/authentication/login/googleLogin/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/authentication/login/googleLogin/route.js"
-    ],
-    "/create/loading": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/create/loading.js"
-    ],
-    "/create/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/create/page.js"
-    ],
-    "/api/blog/addBlog/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/blog/addBlog/route.js"
-    ],
     "/myProfile/[id]/[username]/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -56,10 +31,30 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/user/route.js"
     ],
-    "/api/authentication/login/route": [
+    "/myProfile/settings/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/authentication/login/route.js"
+      "static/chunks/app/myProfile/settings/loading.js"
+    ],
+    "/myProfile/settings/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/myProfile/settings/page.js"
+    ],
+    "/profile/followers/[id]/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/profile/followers/[id]/loading.js"
+    ],
+    "/profile/followers/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/profile/followers/[id]/page.js"
+    ],
+    "/api/user/getFollowersAndFollowing/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/user/getFollowersAndFollowing/route.js"
     ],
     "/blog/[id]/loading": [
       "static/chunks/webpack.js",
@@ -76,25 +71,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/profile/[id]/[username]/page.js"
     ],
-    "/api/user/followUser/route": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/user/followUser/route.js"
-    ],
-    "/profile/followers/[id]/loading": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/profile/followers/[id]/loading.js"
-    ],
-    "/profile/followers/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/profile/followers/[id]/page.js"
-    ],
-    "/api/user/getFollowersAndFollowing/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/user/getFollowersAndFollowing/route.js"
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

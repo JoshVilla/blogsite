@@ -1,27 +1,26 @@
-"use client";
+import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import ClientLayout from "./client-layout";
 import Navbar from "@/components/navbar/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
-import Menu from "@/components/menu/menu";
-import { usePathname } from "next/navigation";
+import { metadata as siteMetadata } from "./metadata";
+import MenuLayout from "./menu-layout";
 
+export const metadata: Metadata = siteMetadata; // ✅ Set global metadata
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const path = usePathname()
-  console.log(path)
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
         <ClientLayout>
           <Navbar />
-          {path !== "/login" && path !== "/register" && <Menu />}
+          <MenuLayout />
           {children}
+          <SpeedInsights />
         </ClientLayout>
         <Toaster />
       </body>

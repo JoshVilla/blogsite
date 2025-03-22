@@ -9,6 +9,7 @@ import Loading from "./loading";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/container/container";
+import useTitlePage from "@/hooks/useTitlePage";
 
 const Page = () => {
   const params = useParams();
@@ -22,6 +23,8 @@ const Page = () => {
       getFollowing({ userId: params.id, category: "followers", page }),
     enabled: !!params.id,
   });
+
+  useTitlePage("Followers");
 
   useEffect(() => {
     if (data) {

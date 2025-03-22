@@ -12,6 +12,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Pencil, Settings, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Loading from "./loading";
+import useTitlePage from "@/hooks/useTitlePage";
 
 const Profile = () => {
   const router = useRouter();
@@ -25,6 +26,8 @@ const Profile = () => {
     },
     enabled: !!id,
   });
+
+  useTitlePage("My Profile");
 
   const isMyAccount = userState._id === id;
   const profile: IUser | null = data?.data || null;

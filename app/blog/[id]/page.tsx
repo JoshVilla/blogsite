@@ -6,7 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Calendar,
   Edit,
@@ -25,6 +25,7 @@ import { RootState } from "@/app/redux/store/store";
 import { setBlog } from "@/app/redux/slices/blogSlice";
 import DeleteBlog from "../delete/delete";
 import Loading from "./loading";
+import useTitlePage from "@/hooks/useTitlePage";
 
 const Blog = () => {
   const router = useRouter();
@@ -48,6 +49,8 @@ const Blog = () => {
   const toastToLoggedIn = () => toast.warning("Login first to continue");
 
   const isMyAccount = userState._id === blogData?.creator_id;
+
+  useTitlePage(`${blogData ? blogData.title : "Blog"} `);
 
   // Like / Unlike Mutation
   const likeMutation = useMutation({

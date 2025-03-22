@@ -22,8 +22,6 @@ import { addBlog } from "@/service/api";
 import { toast } from "sonner";
 import Container from "@/components/container/container";
 
-// TODO ADDLOADING UI
-
 const Page = () => {
   const userState = useSelector((state: RootState) => state.user.user as IUser);
 

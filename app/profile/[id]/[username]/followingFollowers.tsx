@@ -12,8 +12,9 @@ import { toast } from "sonner";
 
 interface IFollowingFollowers {
   data: any;
+  isMyAccount: boolean;
 }
-const FollowingFollowers = ({ data }: IFollowingFollowers) => {
+const FollowingFollowers = ({ data, isMyAccount }: IFollowingFollowers) => {
   const router = useRouter();
   const params = useParams();
   const dispatch = useDispatch();
@@ -40,9 +41,11 @@ const FollowingFollowers = ({ data }: IFollowingFollowers) => {
   };
   return (
     <div className="flex gap-10 items-center justify-between md:justify-between mb-10">
-      <Button size="sm" variant={"outline"} onClick={handleFollowUser}>
-        {isFollowed ? "Followed" : "Follow"}
-      </Button>
+      {isMyAccount && (
+        <Button size="sm" variant={"outline"} onClick={handleFollowUser}>
+          {isFollowed ? "Followed" : "Follow"}
+        </Button>
+      )}
       <div className="flex items-center gap-10 ">
         <div className="flex flex-col items-center">
           <div
