@@ -14,17 +14,17 @@ export async function POST(request: NextRequest) {
     // Find user by email
     const user = await User.findOne({ email });
     const userSettings = await Settings.findOne({ email });
-    const getFollowersFollowing = await FollowersFollowing.findOne({
-      userId: user._id,
-    });
 
-    console.log(
-      getFollowersFollowing.following.length || 0,
-      getFollowersFollowing?.following?.length || 0
-    );
-
-    const followingCount = getFollowersFollowing?.following?.length || 0;
-    const followersCount = getFollowersFollowing?.followers?.length || 0;
+    // If email does not exist in both collections
+    if (!user && !userSettings) {
+      return NextResponse.json(
+        {
+          isSuccess: false,
+          message: "Email does not exist.",
+        },
+        { status: 404 }
+      );
+    }
 
     // If user does not exist
     if (!user) {
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     }
 
     // if the account is disabled
-    if (new Date() <= new Date(userSettings.disabledUntil)) {
+    if (userSettings && new Date() <= new Date(userSettings.disabledUntil)) {
       return NextResponse.json(
         {
           isSuccess: false,
@@ -60,6 +60,13 @@ export async function POST(request: NextRequest) {
         { status: 401 }
       );
     }
+
+    const getFollowersFollowing = await FollowersFollowing.findOne({
+      userId: user._id,
+    });
+
+    const followingCount = getFollowersFollowing?.following?.length || 0;
+    const followersCount = getFollowersFollowing?.followers?.length || 0;
     const userObject = user.toObject();
     // Success response
     return NextResponse.json({
