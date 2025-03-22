@@ -189,9 +189,11 @@ const Blog = () => {
                       `/myProfile/${blogData.creator_id}/${blogData.username}`
                     );
                   } else {
-                    router.push(
-                      `/profile/${blogData.creator_id}/${blogData.username}`
-                    );
+                    isLoggedIn()
+                      ? router.push(
+                          `/profile/${blogData.creator_id}/${blogData.username}`
+                        )
+                      : toastToLoggedIn();
                   }
                 }}
               >

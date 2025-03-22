@@ -65,6 +65,11 @@ const Page = () => {
       return;
     }
 
+    if (selectedCategories.length === 0) {
+      toast.error("Category is required");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("content", contentText);
     if (form.getValues("image")) {
