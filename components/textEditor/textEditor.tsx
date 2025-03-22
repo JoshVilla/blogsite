@@ -8,16 +8,39 @@ import Heading from "@tiptap/extension-heading";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 import ListItem from "@tiptap/extension-list-item";
+import Link from "@tiptap/extension-link";
 import React, { useState } from "react";
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
-import {AArrowDown, AArrowUp, Bold, LinkIcon, Italic, UnderlineIcon, List, ListOrdered} from "lucide-react";
-import FontSize from "@tiptap/extension-font-size";
-import Link from "@tiptap/extension-link";
-import {Button} from "@/components/ui/button";
+import {
+  AArrowDown,
+  AArrowUp,
+  Bold,
+  LinkIcon,
+  Italic,
+  UnderlineIcon,
+  List,
+  ListOrdered,
+} from "lucide-react";
+
+// ✅ Custom Font Size Extension for Tiptap v2
+const FontSize = TextStyle.extend({
+  addAttributes() {
+    return {
+      fontSize: {
+        default: null,
+        parseHTML: (element) => element.style.fontSize || null,
+        renderHTML: (attributes) => {
+          if (!attributes.fontSize) return {};
+          return { style: `font-size: ${attributes.fontSize}` };
+        },
+      },
+    };
+  },
+});
 
 interface IEditor {
-  onChange: (content: string) => void,
-  contentValue: string
+  onChange: (content: string) => void;
+  contentValue: string;
 }
 
 const TiptapEditor = ({ onChange, contentValue }: IEditor) => {
@@ -41,23 +64,20 @@ const TiptapEditor = ({ onChange, contentValue }: IEditor) => {
       Color.configure({ types: ["textStyle"] }),
       Underline,
       Heading.configure({ levels: [1, 2, 3] }),
-      FontSize.configure({ types: ["textStyle"] }),
+      FontSize, // ✅ Use the custom FontSize extension
       Link.configure({
         openOnClick: true,
         autolink: true,
-        HTMLAttributes: {
-          class: "text-blue-500 underline", // Optional: Add Tailwind styles
-        },
+        HTMLAttributes: { class: "text-blue-500 underline" }, // Optional: Tailwind styles
       }),
     ],
-    content: contentValue, // Ensure correct list structure
+    content: contentValue,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       setContent(html);
       onChange(html);
     },
   });
-
 
   if (!editor) return null;
 
@@ -82,23 +102,35 @@ const TiptapEditor = ({ onChange, contentValue }: IEditor) => {
     },
     {
       value: "increase",
-      icon: AArrowUp, // Use a bigger icon for now
+      icon: AArrowUp,
       action: () => {
-        const currentSize = parseInt(editor.getAttributes("textStyle")?.fontSize || "16");
-        editor.chain().focus().setMark("textStyle", { fontSize: `${currentSize + 2}px` }).run();
+        const currentSize = parseInt(
+          editor.getAttributes("textStyle")?.fontSize || "16"
+        );
+        editor
+          .chain()
+          .focus()
+          .setMark("textStyle", { fontSize: `${currentSize + 2}px` })
+          .run();
       },
-      isActive: () => false, // Always clickable
+      isActive: () => false,
     },
     {
       value: "decrease",
-      icon: AArrowDown, // Use a smaller icon for now
+      icon: AArrowDown,
       action: () => {
-        const currentSize = parseInt(editor.getAttributes("textStyle")?.fontSize || "16");
+        const currentSize = parseInt(
+          editor.getAttributes("textStyle")?.fontSize || "16"
+        );
         if (currentSize > 10) {
-          editor.chain().focus().setMark("textStyle", { fontSize: `${currentSize - 2}px` }).run();
+          editor
+            .chain()
+            .focus()
+            .setMark("textStyle", { fontSize: `${currentSize - 2}px` })
+            .run();
         }
       },
-      isActive: () => false, // Always clickable
+      isActive: () => false,
     },
     {
       value: "bulletList",
@@ -114,10 +146,10 @@ const TiptapEditor = ({ onChange, contentValue }: IEditor) => {
     },
     {
       value: "link",
-      icon: LinkIcon, // Replace with your actual icon
+      icon: LinkIcon,
       action: () => {
         if (editor.isActive("link")) {
-          editor.chain().focus().unsetLink().run(); // Removes the link
+          editor.chain().focus().unsetLink().run();
         } else {
           const url = prompt("Enter URL");
           if (url) {
@@ -126,32 +158,31 @@ const TiptapEditor = ({ onChange, contentValue }: IEditor) => {
         }
       },
       isActive: () => editor.isActive("link"),
-    }
+    },
   ];
 
-
   return (
-      <div>
-        <div className="flex gap-2 mb-4">
-          <ToggleGroup type="multiple" size="sm" className="space-x-2">
-            {actionEditor.map((item, index) => (
-                <ToggleGroupItem
-                    value={item.value}
-                    key={index}
-                    //@ts-ignore
-                    pressed={item.isActive()} // Ensure function call
-                    onClick={item.action}
-                >
-                  <item.icon className="h-4 w-4" />
-                </ToggleGroupItem>
-            ))}
-          </ToggleGroup>
-        </div>
-
-        <div className="prose max-w-none">
-          <EditorContent editor={editor}/>
-        </div>
+    <div>
+      <div className="flex gap-2 mb-4">
+        <ToggleGroup type="multiple" size="sm" className="space-x-2">
+          {actionEditor.map((item, index) => (
+            <ToggleGroupItem
+              value={item.value}
+              key={index}
+              //@ts-ignore
+              pressed={item.isActive()} // Ensure function call
+              onClick={item.action}
+            >
+              <item.icon className="h-4 w-4" />
+            </ToggleGroupItem>
+          ))}
+        </ToggleGroup>
       </div>
+
+      <div className="prose max-w-none">
+        <EditorContent editor={editor} />
+      </div>
+    </div>
   );
 };
 
