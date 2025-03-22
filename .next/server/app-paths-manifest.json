@@ -1,12 +1,4 @@
 {
   "/api/blog/route": "app/api/blog/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/user/getFollowersAndFollowing/route": "app/api/user/getFollowersAndFollowing/route.js",
-  "/api/user/route": "app/api/user/route.js",
-  "/page": "app/page.js",
-  "/myProfile/settings/page": "app/myProfile/settings/page.js",
-  "/myProfile/[id]/[username]/page": "app/myProfile/[id]/[username]/page.js",
-  "/profile/followers/[id]/page": "app/profile/followers/[id]/page.js",
-  "/blog/[id]/page": "app/blog/[id]/page.js",
-  "/profile/[id]/[username]/page": "app/profile/[id]/[username]/page.js"
+  "/page": "app/page.js"
 }
