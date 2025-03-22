@@ -3,20 +3,18 @@ import BlogCard from "@/components/blogCard/blogCard";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { getBlogs, getLikeFavorite } from "@/service/api";
-import { IBlog, ISettings,  } from "@/utils/types";
+import { IBlog, ISettings } from "@/utils/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import {  Heart, LockKeyhole, Newspaper, ThumbsUp } from "lucide-react";
+import { Heart, LockKeyhole, Newspaper, ThumbsUp } from "lucide-react";
 import Categories from "@/components/categories/categories";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store/store";
-const BlogList = ({data}: {data:any}) => {
-
-
+const BlogList = ({ data }: { data: any }) => {
   const [selectedMenu, setSelectedMenu] = useState("blogs");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const {id, username} = useParams();
+  const { id, username } = useParams();
   const queryClient = useQueryClient();
 
   // Invalidate previous query on menu change
@@ -28,16 +26,20 @@ const BlogList = ({data}: {data:any}) => {
 
   // Fetch My Blogs
   const blogsQuery = useQuery({
-    queryKey: ["blogs", username, selectedCategory],
-    queryFn: () => getBlogs({ username, category: selectedCategory }),
-    enabled: selectedMenu === "blogs" && !!username, // Ensure id exists
+    queryKey: ["blogs", id, selectedCategory],
+    queryFn: () => getBlogs({ creator_id: id, category: selectedCategory }),
+    enabled: selectedMenu === "blogs" && !!id, // Ensure id exists
   });
 
   // Fetch Liked Blogs
   const likesQuery = useQuery({
     queryKey: ["likes", id, selectedCategory],
     queryFn: () =>
-      getLikeFavorite({ userId: id, category: selectedCategory, action: "liked" }),
+      getLikeFavorite({
+        userId: id,
+        category: selectedCategory,
+        action: "liked",
+      }),
     enabled: selectedMenu === "likes" && !!id,
   });
 
@@ -45,7 +47,11 @@ const BlogList = ({data}: {data:any}) => {
   const favoritesQuery = useQuery({
     queryKey: ["favorites", id, selectedCategory],
     queryFn: () =>
-      getLikeFavorite({ userId: id, category: selectedCategory, action: "favorited" }),
+      getLikeFavorite({
+        userId: id,
+        category: selectedCategory,
+        action: "favorited",
+      }),
     enabled: selectedMenu === "favorites" && !!id,
   });
 
@@ -60,23 +66,23 @@ const BlogList = ({data}: {data:any}) => {
   const menus = [
     {
       label: "Blogs",
-      key:"blogs",
+      key: "blogs",
       icon: Newspaper,
-      isHidden: data.hideBlogs
+      isHidden: data.hideBlogs,
     },
     {
       label: "Likes",
-      key:"likes",
+      key: "likes",
       icon: ThumbsUp,
-      isHidden: data.hideLikes
+      isHidden: data.hideLikes,
     },
     {
       label: "Favorites",
-      key:"favorites",
+      key: "favorites",
       icon: Heart,
-      isHidden: data.hideFavorite
-    }
-  ]
+      isHidden: data.hideFavorite,
+    },
+  ];
 
   return (
     <div>
@@ -94,16 +100,16 @@ const BlogList = ({data}: {data:any}) => {
           >
             <menu.icon className="h-4 w-4" />
             {menu.label}
-            {
-              menu.isHidden && <LockKeyhole className="h-4 w-4" />
-            }
+            {menu.isHidden && <LockKeyhole className="h-4 w-4" />}
           </Button>
         ))}
       </div>
-        <Separator className="my-2"/>
-        <Categories onChange={(category) => {
-          if(category !== selectedCategory) setSelectedCategory(category)
-        }} />
+      <Separator className="my-2" />
+      <Categories
+        onChange={(category) => {
+          if (category !== selectedCategory) setSelectedCategory(category);
+        }}
+      />
       {/* Loading and Error States */}
       {activeQuery.isLoading && <p>Loading...</p>}
       {activeQuery.error && <p>Error: {activeQuery.error.message}</p>}
