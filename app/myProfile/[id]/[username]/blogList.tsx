@@ -3,18 +3,16 @@ import BlogCard from "@/components/blogCard/blogCard";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { getBlogs, getLikeFavorite } from "@/service/api";
-import { IBlog, ISettings } from "@/utils/types";
+import { IBlog } from "@/utils/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { Heart, LockKeyhole, Newspaper, ThumbsUp } from "lucide-react";
 import Categories from "@/components/categories/categories";
-import { useSelector } from "react-redux";
-import { RootState } from "@/app/redux/store/store";
 const BlogList = ({ data }: { data: any }) => {
   const [selectedMenu, setSelectedMenu] = useState("blogs");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const { id, username } = useParams();
+  const { id } = useParams();
   const queryClient = useQueryClient();
 
   // Invalidate previous query on menu change
