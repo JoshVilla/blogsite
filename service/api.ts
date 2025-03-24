@@ -79,3 +79,7 @@ export const followUser = async (params: any): Promise<any> => {
 export const getFollowing = async (params: any): Promise<any> => {
   return await post("/api/user/getFollowersAndFollowing", params);
 };
+
+export const deleteAccount = async (params: any): Promise<any> => {
+  return await post("/api/user/deleteAccount", params);
+};

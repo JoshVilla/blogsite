@@ -41,7 +41,7 @@ const FollowingFollowers = ({ data, isMyAccount }: IFollowingFollowers) => {
   };
   return (
     <div className="flex gap-10 items-center justify-between md:justify-between mb-10">
-      {isMyAccount && (
+      {!isMyAccount && (
         <Button size="sm" variant={"outline"} onClick={handleFollowUser}>
           {isFollowed ? "Followed" : "Follow"}
         </Button>

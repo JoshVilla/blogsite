@@ -33,7 +33,7 @@ const Profile = () => {
   useTitlePage("Profile");
   return (
     <Container>
-      {profile && (
+      {profile ? (
         <>
           <div className="relative w-full h-64 rounded-lg ">
             <Image
@@ -85,6 +85,12 @@ const Profile = () => {
             </div>
           </div>
         </>
+      ) : (
+        <div>
+          <div className="text-sm text-gray-500 text-center">
+            User not found. The account may have already been deleted.
+          </div>
+        </div>
       )}
     </Container>
   );

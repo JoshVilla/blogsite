@@ -79,7 +79,9 @@ const Navbar = () => {
             <div>Hi {userState.username}</div>
             <AlertDialog>
               <AlertDialogTrigger>
-                <div className="text-sm hover:underline">Logout</div>
+                <div className="text-sm hover:underline cursor-pointer">
+                  Logout
+                </div>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
@@ -93,7 +95,10 @@ const Navbar = () => {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleLogout}>
+                  <AlertDialogAction
+                    onClick={handleLogout}
+                    className="cursor-pointer"
+                  >
                     Logout
                   </AlertDialogAction>
                 </AlertDialogFooter>

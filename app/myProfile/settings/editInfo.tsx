@@ -64,7 +64,6 @@ const EditInfo = () => {
       if (data.isSuccess) {
         toast.success(data.message);
         dispatch(setUser(data.data));
-        console.log(data.data)
       }
     },
     onError: (error) => {
@@ -97,124 +96,129 @@ const EditInfo = () => {
 
     infoMutation.mutate(params);
   };
-  
 
   return (
+    <div className="mt-6">
+      <div className="flex gap-10 flex-col lg:flex-row justify-between">
+        {/* Profile Image Section */}
+        <div>
+          <Image
+            src={profilePreview}
+            width={200}
+            height={200}
+            alt="profile"
+            className="h-52 w-52 object-cover rounded-full mx-auto mb-6"
+          />
 
-      <div className="mt-6">
-        <div className="flex gap-10 flex-col md:flex-row justify-between">
-          {/* Profile Image Section */}
-          <div>
-            <Image
-              src={profilePreview}
-              width={200}
-              height={200}
-              alt="profile"
-              className="h-52 w-52 object-cover rounded-full mx-auto mb-6"
-            />
+          <Input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={(e) => {
+              const file = e.target.files?.[0] || null;
+              if (file) {
+                setProfileFile(file);
+                const objectUrl = URL.createObjectURL(file);
+                setProfilePreview(objectUrl);
+              }
+            }}
+          />
 
-            <Input
-              type="file"
-              accept="image/*"
-              ref={fileInputRef}
-              onChange={(e) => {
-                const file = e.target.files?.[0] || null;
-                if (file) {
-                  setProfileFile(file);
-                  const objectUrl = URL.createObjectURL(file);
-                  setProfilePreview(objectUrl);
-                }
-              }}
-            />
-
-            {profileFile && (
-              <div className="w-20 mx-auto">
-                <Button
-                  size="sm"
-                  className="mt-4 cursor-pointer"
-                  onClick={handleUpdateProfilePicture}
-                >
-                  {profileMutation.isPending ? "Updating..." : "Update"}
-                </Button>
-              </div>
-            )}
-          </div>
-
-          {/* User Info Form */}
-          <div>
-            <Form {...form}>
-              <form className="space-y-6" onSubmit={form.handleSubmit(handleChangeInfo)}>
-              <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="Enter email" disabled={userState.isGoogleModeRegistration}/>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="username"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="Enter username" />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="firstname"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Firstname</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="Enter firstname" />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="middlename"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Middlename</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="Enter middlename" />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lastname"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Lastname</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="Enter lastname" />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <Button className="cursor-pointer" type="submit" size="sm">
-                  {infoMutation.isPending ? "Updating..." : "Update"}
-                </Button>
-              </form>
-            </Form>
-          </div>
-
-          {/* Change Password Section */}
-          {!userState.isGoogleModeRegistration && <ChangePassword />}
+          {profileFile && (
+            <div className="w-20 mx-auto">
+              <Button
+                size="sm"
+                className="mt-4 cursor-pointer"
+                onClick={handleUpdateProfilePicture}
+              >
+                {profileMutation.isPending ? "Updating..." : "Update"}
+              </Button>
+            </div>
+          )}
         </div>
+
+        {/* User Info Form */}
+        <div>
+          <Form {...form}>
+            <form
+              className="space-y-6"
+              onSubmit={form.handleSubmit(handleChangeInfo)}
+            >
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Enter email"
+                        disabled={userState.isGoogleModeRegistration}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Enter username" />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="firstname"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Firstname</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Enter firstname" />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="middlename"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Middlename</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Enter middlename" />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastname"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Lastname</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Enter lastname" />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <Button className="cursor-pointer" type="submit" size="sm">
+                {infoMutation.isPending ? "Updating..." : "Update"}
+              </Button>
+            </form>
+          </Form>
+        </div>
+
+        {/* Change Password Section */}
+        {!userState.isGoogleModeRegistration && <ChangePassword />}
       </div>
+    </div>
   );
 };
 
